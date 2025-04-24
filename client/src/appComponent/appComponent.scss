@@ -1,0 +1,23 @@
+.appComp{
+    display: flex;
+    height: 100%;
+    border: 1px solid red;
+
+
+    .imageCont{
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .fornCont{
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+}

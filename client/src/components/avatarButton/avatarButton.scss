@@ -1,0 +1,59 @@
+.avatar-button {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.avatar-button:focus {
+  outline: none;
+}
+
+.avatar-button.pulsing {
+  animation: pulseBorder 1s infinite alternate;
+}
+
+@keyframes pulseBorder {
+  0% {
+    box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5); /* Czerwony efekt przyciągający uwagę */
+  }
+  100% {
+    box-shadow: 0 0 20px 6px rgba(255, 0, 0, 1);
+  }
+}
+
+.avatar-button:hover .tooltip,
+.avatar-button:focus .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-10px);
+}
+
+.tooltip {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}

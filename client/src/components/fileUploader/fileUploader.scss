@@ -1,0 +1,52 @@
+.file-uploader {
+
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .upload-button {
+
+        border: none;
+        border-radius: 10px;
+        height: 72px;
+        font-size: 16px;
+        width: 200px;
+
+
+
+    }
+
+    .file-preview-container {
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .file-preview {
+
+            display: flex;
+            gap: 10px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+
+            .remove-button {
+                width: 15px;
+                height: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                color: white;
+                background-color: violet;
+                border-radius: 50%;
+                font-size: 14px;
+
+            }
+        }
+    }
+}

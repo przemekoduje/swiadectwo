@@ -1,0 +1,161 @@
+.form-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: relative;
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &.blur-background {
+      filter: blur(2px); // Rozmycie tła, gdy okno potwierdzenia jest widoczne
+      pointer-events: none; // Wyłączenie interakcji z formularzem, gdy popup jest aktywny
+    }
+  }
+
+  .confirmation-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 150px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    
+    h3 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    p {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  
+    .confirmation-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 50%;
+  
+      button {
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        flex: 1;
+        margin: 0 5px;
+        background-color: #f0f0f0;
+        &:hover {
+          background-color: #bbbaba;
+        }
+    
+        &:first-child {
+          background-color: #FF0083; // Styl dla pierwszego przycisku (np. tak)
+        }
+    
+        &:last-child {
+          background-color: #f0f0f0; // Styl dla drugiego przycisku (np. nie)
+          color: rgb(133, 133, 133);
+        }
+      }
+    }
+  }
+
+  .headPhoto {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    width: 130px;
+    height: 130px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .full-width-line {
+    position: absolute;
+    top: 80px;
+    width: 100vw;
+    border: none;
+    border-top: 1px solid rgb(206, 206, 206);
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+  }
+
+  .left-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60vw;
+    height: 100%;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .right-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50vw;
+    min-width: 600px;
+    height: 100%;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.95) 5%,
+      rgba(255, 255, 255, 0.9) 10%,
+      rgba(255, 255, 255, 0.85) 15%,
+      rgba(255, 255, 255, 0.8) 20%,
+      rgba(255, 255, 255, 0.75) 25%,
+      rgba(255, 255, 255, 0.7) 30%,
+      rgba(255, 255, 255, 0.65) 35%,
+      rgba(255, 255, 255, 0.6) 40%,
+      rgba(255, 255, 255, 0.55) 45%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.45) 55%,
+      rgba(255, 255, 255, 0.4) 60%,
+      rgba(255, 255, 255, 0.35) 65%,
+      rgba(255, 255, 255, 0.3) 70%,
+      rgba(255, 255, 255, 0.25) 75%,
+      rgba(255, 255, 255, 0.2) 80%,
+      rgba(255, 255, 255, 0.15) 85%,
+      rgba(255, 255, 255, 0.1) 90%,
+      rgba(255, 255, 255, 0.05) 95%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .reset-button {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.home3-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  .h3-wrapper {
+
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #4a4a4a;
+    h3 {
+      font-size: 36px;
+    }
+
+    ul {
+
+        margin-bottom: 80px;
+        margin-top: 35px;
+      li {
+        list-style-type: none;
+      }
+    }
+
+    .comix-offer {
+      display: flex;
+      gap: 20px;
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        border-radius: 5px;
+        padding: 15px;
+
+        img {
+          width: 250px;
+          height: 250px;
+          object-fit: cover;
+        }
+
+        .type {
+          font-size: 32px;
+        }
+
+        button {
+          margin: 25px 0;
+          font-size: 20px;
+          font-size: 14px;
+          color: white;
+          padding: 12px 24px;
+          border: none;
+          background-color: #ff0083;
+          border-radius: 5px;
+          box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+          /* Dodany cień */
+          transition: box-shadow 0.3s ease;
+          /* Płynne przejście dla cienia */
+          cursor: pointer;
+
+          &:hover {
+            box-shadow: 0 6px 9px #0000004d;
+            /* Cień po najechaniu myszą */
+          }
+        }
+        .price {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

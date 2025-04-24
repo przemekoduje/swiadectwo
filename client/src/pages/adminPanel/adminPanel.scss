@@ -1,0 +1,65 @@
+// src/components/AdminPanel.jsx
+import { useState } from "react";
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
+export default function AdminPanel() {
+  const [phone, setPhone] = useState("");
+  const [note, setNote] = useState("");
+  const [generatedLink, setGeneratedLink] = useState("");
+
+  const generateLink = async () => {
+    if (!phone) return alert("Podaj numer telefonu pośrednika");
+
+    try {
+      await addDoc(collection(db, "referrals"), {
+        ref: phone,
+        createdAt: serverTimestamp(),
+        note,
+      });
+
+      const link = `${window.location.origin}/wizytowka?ref=${phone}&partner=true`;
+      setGeneratedLink(link);
+    } catch (err) {
+      console.error("Błąd zapisu do Firestore:", err);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: "600px", margin: "40px auto", padding: 24 }}>
+      <h2>🔐 Panel administratora</h2>
+      <label>Numer telefonu pośrednika:</label>
+      <input
+        type="text"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        placeholder="np. 690000000"
+        style={{ width: "100%", padding: 10, margin: "10px 0" }}
+      />
+
+      <label>Notatka (opcjonalnie):</label>
+      <input
+        type="text"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder="opis pośrednika lub region"
+        style={{ width: "100%", padding: 10, marginBottom: 20 }}
+      />
+
+      <button onClick={generateLink} style={{ padding: "10px 20px" }}>
+        Generuj link z referencją
+      </button>
+
+      {generatedLink && (
+        <div style={{ marginTop: 20 }}>
+          <strong>Wygenerowany link:</strong>
+          <p>
+            <a href={generatedLink} target="_blank" rel="noreferrer">
+              {generatedLink}
+            </a>
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}

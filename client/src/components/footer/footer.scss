@@ -1,0 +1,55 @@
+.footer {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+
+  .background-footer {
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .footer-texts {
+    position: absolute;
+    top: 100px;
+    left: 40px;
+    color: #4a4a4a;
+
+    .footer-h3 {
+      display: flex;
+      flex-direction: column;
+    //   gap: 30px;
+
+      h3 {
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 46px;
+      }
+      .adress{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+        gap: 5px;
+        
+      }
+      .audytor{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 40px;
+        gap: 5px;
+      }
+
+      .kontakt{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+    }
+  }
+}

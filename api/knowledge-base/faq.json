@@ -1,0 +1,92 @@
+[
+  {
+    "step": 1,
+    "question": "Jakie informacje o nieruchomości muszę przygotować, żeby prawidłowo wypełnić formularz zapytania?",
+    "answer": "Informacje, które audytor musi wprowadzić do systemu aby powstało świadectwo charakterystyki energetycznej dla nieruchomości to Powierzchnia nieruchomości i wysokość pomieszczeń Liczba ścian  zewntrznych Źródło ogrzewania i ciepłej wody użytkowej Typ grzejników Typ wentylacji Liczba szyb w oknach Z jakich warstw materiałowych składa się ściana zewnetrzna Z czego jest wykonana izolacja elewacji i jaką ma grubość Rok powstania budynku oraz rok ostatniej termomodernizacji Rzut mieszkania lub domu Wszystkie pytania i możliwe do wyboru odpowiedzi możesz ściągnąć pobierając ten dokument pytania-formularz.pdf  "
+  },
+  {
+    "question": "Jak wykonać rzut nieruchomosci?",
+    "answer": "Po prostu wykonaj szkic odręczny na kartce. Wykonaj fotografię, którą załączysz do formularza. Pamiętaj, że ważne jest aby podać wymiary ścian, drzwi i okien. Zaznacz również z czym sąsiadują ściany mieszkania (sąsiednie mieszkania, klatka schodowa czy przestrzeń poza budynkiem."
+  },
+  {
+    "step": 1,
+    "question": "Co jeśli nie znam odpowiedzi na pytania w formularzu",
+    "answer": "Spółdzielnia/ Zarządca ma 14 dni na odpowiedź na wniosek o udostępnienie danych technicznych budynku, w którym znajduje się Twój lokal. Gotowy wniosek pobierzesz tutaj:  pytania-formularz.pdf  lub wypełnij formularz."
+  },
+  {
+    "question": "Kto ma prawo przygotować Świadectwo charakterystyki energetycznej ?",
+    "answer": "Świadectwa energetyczne to nie zabawa – mogą je wystawiać tylko osoby z odpowiednimi uprawnieniami, wpisane do Centralnego Rejestru Świadectw Charakterystyki Energetycznej Budynków. Co więcej, specjaliści ci muszą mieć ważne ubezpieczenie od odpowiedzialności cywilnej. Bez tego ani rusz!"
+  },
+  {
+    "question": "Jak długo ważne jest świadectwo?",
+    "answer": "Świadectwo energetyczne jest ważne przez 10 lat od daty wydania, a potem czas na aktualizację! Trzeba je odnowić również po termomodernizacji, czyli np. po wymianie okien, ociepleniu budynku czy zmianie systemu ogrzewania wody. Modernizujesz? Pamiętaj o świadectwie!"
+  },
+  {
+    "question": "Czy aby sporządzić Świadectwo należy wykonać wizję lokalną?",
+    "answer": "Nie każda nieruchomość wymaga osobistego audytu. Standardowe budynki, dla których zamawiający dostarczy wszystkie potrzebne informacje i dokumenty, mogą obejść się bez wizji lokalnej. Ale przy bardziej złożonych obiektach, kompleksowa inspekcja to konieczność!"
+  },
+  {
+    "question": "Kto jest zobowiązany do uzyskania Świadectwa",
+    "answer": "To właściciele i zarządcy domów jedno- i wielorodzinnych, a także mieszkań spółdzielczych, muszą zadbać o ten dokument. Jeśli planujesz sprzedaż lub wynajem nieruchomości, świadectwo energetyczne jest Twoim obowiązkiem!"
+  },
+  {
+    "question": "Co dostarczyć do notariusza?",
+    "answer": "Praktyka notarialna w zakresie świadectw energetycznych bywa zróżnicowana, co może prowadzić do pewnych niejasności. Niektórzy notariusze wymagają przesłania świadectwa w formie elektronicznej przed aktem notarialnym w celu weryfikacji kwalifikowanego podpisu audytora, podczas gdy inni nalegają na oryginał w wersji papierowej z odręcznym podpisem. Są również notariusze, którzy akceptują wydrukowaną wersję elektroniczną. W razie wątpliwości zapraszamy do kontaktu z Audytorem."
+  },
+  {
+    "question": "W jakiej formie przygotowujemy Świadectwo?",
+    "answer": "Zgodnie z obowiązującymi przepisami, Świadectwo Energetyczne może być wydane zarówno w formie elektronicznej z podpisem kwalifikowanym audytora, jak i w wersji papierowej z odręcznym podpisem. Standardowo wysyłamy je w formie elektronicznej, ale jeśli wolisz tradycyjny papier, z przyjemnością przygotujemy dla Ciebie wersję papierową. W końcu, czasami klasyka jest najlepsza!"
+  },
+  {
+    "step": 4,
+    "field": "liczbascian",
+    "question": "Co to jest liczba ścian zewnętrznych?",
+    "answer": "Liczba ścian zewnętrznych określa, ile ścian danego budynku lub lokalu bezpośrednio sąsiaduje z otoczeniem zewnętrznym. Są to ściany oddzielające ogrzewaną część budynku od środowiska zewnętrznego, które mają wpływ na straty ciepła. Im większa liczba ścian zewnętrznych, tym potencjalnie większe straty energetyczne budynku, co bezpośrednio przekłada się na jego charakterystykę energetyczną. Na przykład mieszkanie środkowe w bloku zazwyczaj ma mniejszą liczbę ścian zewnętrznych, przez co ma mniejsze straty ciepła, a dom wolnostojący lub mieszkanie narożne mają więcej ścian zewnętrznych, co oznacza wyższe straty energetyczne."
+  },
+  {
+    "step": 5,
+    "field": "ogrzewanie",
+    "question": "Jak rozpoznać jaki rodzaj ogrzewania mam w domu?",
+    "answer": "Aby poprawnie wskazać rodzaj ogrzewania, warto zastanowić się, skąd pochodzi ciepło w mieszkaniu lub domu i w jaki sposób jest ono dostarczane: \n\n• Sieć miejska – najczęściej spotykana w budynkach wielorodzinnych. Mieszkanie nie ma własnego pieca, a opłaty za ogrzewanie są naliczane przez administrację lub spółdzielnię. \n\n• Ogrzewanie gazowe – obecność pieca gazowego w mieszkaniu (np. w łazience lub kuchni) lub w osobnej kotłowni. Może też występować jako zewnętrzna kotłownia dla całego budynku. \n\n• Ogrzewanie elektryczne – grzejniki lub maty grzewcze zasilane energią elektryczną, często z indywidualnym sterowaniem. \n\n• Ogrzewanie na paliwo stałe – piec węglowy, na drewno, ekogroszek lub biomasę. Zazwyczaj wymaga ręcznego załadunku paliwa i znajduje się w kotłowni. \n\n• Pompa ciepła – system z jednostką zewnętrzną (najczęściej w domach jednorodzinnych), może współpracować z ogrzewaniem podłogowym lub kaloryferami. \nJeśli nie masz pewności, warto sprawdzić umowę z administracją, dokumentację budynku lub skontaktować się z zarządcą."
+  },
+  {
+    "step": 5,
+    "field": "wodaciepla",
+    "question": "Jakie mogą być źródła ciepłej wody użytkowej (CWU)?",
+    "answer": "Aby poprawnie określić źródło ciepłej wody użytkowej (CWU), warto zastanowić się, gdzie i jak podgrzewana jest woda do kąpieli, zmywania czy mycia rąk.\n\n• Jeśli nie masz żadnego urządzenia grzewczego w mieszkaniu, a opłaty za wodę są stałe – możliwe, że korzystasz z miejskiej sieci ciepłowniczej.\n\n• Jeśli w łazience lub kuchni znajduje się piec gazowy, to prawdopodobnie to on odpowiada za podgrzewanie wody.\n\n• Elektryczny podgrzewacz (przepływowy lub zbiornikowy) często znajduje się nad lub pod zlewem – posiada osobne pokrętło lub lampkę kontrolną.\n\n• Pompa ciepła lub inne systemy (np. solarne) najczęściej występują w domach jednorodzinnych i są połączone z zasobnikiem wody.\n\nW przypadku wątpliwości, warto zajrzeć do dokumentacji budynku, umowy z dostawcą mediów lub skontaktować się z administracją lub zarządcą budynku."
+
+  },
+  {
+    "step": 5,
+    "field": "grzejniki",
+    "question": "Jak rozpoznać, jakie mam grzejniki w mieszkaniu?",
+    "answer": "Jeśli nie jesteś pewien, jaki typ grzejnika masz w domu, przyjrzyj się jego wyglądowi i miejscu montażu:\n\n• Grzejniki płytowe – najczęstsze w nowych mieszkaniach. Gładka, prostokątna powierzchnia, zwykle malowana na biało. Cienkie, przylegające do ściany.\n\n• Żeliwne – ciężkie, masywne, o wyraźnym żeberkowym kształcie. Często spotykane w starszym budownictwie.\n\n• Członowe – podobne do żeliwnych, ale złożone z pojedynczych sekcji (członów). Lżejsze i bardziej nowoczesne.\n\n• Podłogowe – zamiast grzejników na ścianach, ciepło wydobywa się z całej powierzchni podłogi. Nie ma widocznych urządzeń grzewczych.\n\n• Piecowe/kominkowe – źródło ciepła to piec kaflowy lub kominek. Grzeją punktowo i zazwyczaj nie są połączone z instalacją wodną.\n\nJeśli masz wątpliwości, warto zapytać właściciela lokalu, administrację budynku lub spojrzeć w dokumentację instalacji CO."
+  },
+  {
+    "step": 5,
+    "field": "wentylacja",
+    "question": "Skąd mam wiedzieć, jaki typ wentylacji mam w mieszkaniu?",
+    "answer": "Rodzaj wentylacji w mieszkaniu można rozpoznać po tym, jak działa system wymiany powietrza oraz jakie elementy są widoczne w pomieszczeniach:\n\n• Grawitacyjna – najbardziej podstawowa. Nie ma żadnych wentylatorów. Powietrze wyciągane jest naturalnie przez kratki wentylacyjne (np. w kuchni, łazience), zwykle widoczne na ścianie pod sufitem. Czuć ruch powietrza tylko przy odpowiednich warunkach pogodowych (różnica temperatur).\n\n• Mechaniczna wywiewna – przy kratkach wentylacyjnych są zainstalowane małe wentylatory, które zasysają powietrze. Słychać ich pracę. Często stosowana w łazienkach i toaletach.\n\n• Mechaniczna nawiewno-wywiewna – zaawansowany system. Powietrze jest zarówno zasysane, jak i tłoczone do pomieszczeń. Najczęściej spotykany w nowych domach lub mieszkaniach z wentylacją z odzyskiem ciepła (rekuperacją). W pomieszczeniach mogą być kratki lub anemostaty zarówno nawiewne, jak i wyciągowe.\n\nJeśli nie jesteś pewien, zajrzyj do dokumentacji budynku, zapytaj zarządcę lub zwróć uwagę na obecność wentylatorów i anemostatów."
+
+  },
+  {
+    "step": 5,
+    "field": "szyby",
+    "question": "Jak sprawdzić, ile szyb mają moje okna?",
+    "answer": "Liczba szyb w oknie wpływa na izolację cieplną i akustyczną mieszkania. Aby sprawdzić, ile szyb znajduje się w Twoim oknie, możesz wykonać prosty test:\n\n• Przyłóż zapaloną zapałkę lub zapalniczkę do szyby i policz, ile odbić płomienia widzisz. Każde odbicie to jedna tafla szkła, a więc jedna szyba. Dwa odbicia – to okno dwuszybowe (jednokomorowe), trzy – to trzyszybowe (dwukomorowe), itd.\n\n• Często na ramie okna znajdziesz naklejkę producenta, która może zawierać oznaczenie pakietu szybowego (np. 4/16/4 – dwie szyby, komora 16 mm).\n\n• Jeśli okna były wymieniane lub są nowe, najprawdopodobniej są co najmniej dwuszybowe. Starsze, nieszczelne okna mogą mieć tylko jedną szybę.\n\nW razie wątpliwości – zapytaj zarządcę, poprzedniego właściciela lub sprawdź dokumentację z montażu okien."
+
+  },
+  {
+    "step": 6,
+    "field": "sciana",
+    "question": "Jakie są najczęściej stosowane materiały do budowy ścian zewnętrznych budynków?",
+    "answer": "Nie każdy musi wiedzieć, z czego dokładnie zbudowane są ściany budynku – zwłaszcza jeśli nie był zaangażowany w jego budowę. Ale są sposoby, by to ustalić:\n\n• 📄 Dokumenty techniczne: Sprawdź wypis z książki obiektu budowlanego, projekt budynku lub umowę deweloperską – tam często znajdziesz nazwę materiału.\n\n• 🧱 Ściana w otworze drzwiowym lub okiennym: Czasem przy demontażu parapetu lub drzwi wejściowych widać przekrój ściany – kolor, faktura i struktura mogą sugerować materiał (np. cegła – czerwona, gładka; silka – jasna, twarda; beton komórkowy – bardzo jasny i lekki).\n\n• 🏢 Typ budynku i okres budowy: Budynki z lat 70–80 to często pustaki żużlowe lub silikaty. Współczesne domy jednorodzinne buduje się często z porothermu, ytonga lub betonu komórkowego.\n\n• 🛠 Jeśli mieszkasz w bloku – zapytaj administrację lub sąsiada z tej samej klatki, kto np. niedawno robił remont.\n\nJeśli mimo wszystko nie masz pewności – wybierz opcję „brak informacji” lub najbliższą temu, co podejrzewasz. Audytor pomoże to później zweryfikować."
+
+  },
+  {
+    "step": 6,
+    "field": "izolacja",
+    "question": "Jak sprawdzić, jakiego materiału użyto do ocieplenia budynku?",
+    "answer": "Jeśli nie masz pewności, jakim materiałem ocieplono Twój budynek – spokojnie, nie zawsze to oczywiste na pierwszy rzut oka. Oto kilka wskazówek, które mogą Ci pomóc:\n\n• 🧾 Sprawdź dokumentację techniczną: Jeśli masz dostęp do projektu budowlanego, protokołu odbioru lub świadectwa energetycznego całego budynku – tam często znajdziesz nazwę zastosowanego materiału.\n\n• 🔍 Zajrzyj pod elewację (jeśli to możliwe): np. w miejscu uszkodzenia tynku, przy wymianie parapetu, w okolicach kotłowni. Jasnoszary materiał to najczęściej styropian, ciemniejszy (grafitowy) to EPS grafit. Żółtawa lub brązowa wata to wełna mineralna.\n\n• 🏘 Typ budynku i jego wiek: W starszych budynkach częściej spotyka się styropian; w nowszych (zwłaszcza pasywnych) — wełnę mineralną, płyty PIR, a czasem piankę PUR.\n\n• 🔧 Zapytaj wykonawcę, administrację lub sąsiada: Często jeden z nich pamięta, czym był ocieplony budynek lub może wskazać firmę, która to robiła.\n\nJeśli nie jesteś w stanie tego ustalić – wybierz opcję „brak informacji” lub wskaż to, co wydaje się najbardziej prawdopodobne. To wystarczy do dalszej analizy przez audytora."
+  }
+]
