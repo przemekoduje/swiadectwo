@@ -1,34 +1,44 @@
 .step8 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 
-    h2{
-      font-size: 40px;
-      margin-bottom: 40px;
-    }
-  
-    .fileUploaders {
+  h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .fileUploaders {
+    display: flex;
+
+    gap: 20px;
+    margin-top: 100px;
+
+
+    .fileUploader_wrapper {
+
+
       display: flex;
-      
-      gap: 20px;
-  
+      flex-direction: column;
+
+
+
       .fileUploader {
 
-
-
         .custom-file-upload {
+          max-width: 150px;
+          
           position: relative;
           display: inline-block;
           cursor: pointer;
           margin-bottom: 20px;
-  
+
           input[type="file"] {
             position: absolute;
             left: -9999px;
           }
-  
+
           &::before {
             content: 'Wybierz pliki'; // Zmienimy to w każdej sekcji
             padding: 10px 20px;
@@ -41,19 +51,19 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
           }
-  
+
           &:hover::before {
             background-color: #e0e0e0;
           }
         }
-  
+
         .file-preview {
           display: flex;
           flex-direction: column;
           gap: 10px;
           width: 100%;
-          max-width: 400px;
-  
+          max-width: 150px;
+
           .file-item {
             display: flex;
             justify-content: space-between;
@@ -61,19 +71,20 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-  
+
             p {
               margin: 0;
+              font-size: 10px;
             }
-  
+
             button {
               background-color: #ff0083;
               border: none;
               color: white;
-              padding: 5px 10px;
+              padding: 2px 5px;
               border-radius: 5px;
               cursor: pointer;
-  
+
               &:hover {
                 background-color: #e60077;
               }
@@ -81,46 +92,58 @@
           }
         }
 
-        
+
       }
-  
-      .fileUploader:nth-of-type(1) .custom-file-upload::before {
-        content: 'Zdjęcia budynku z zewnątrz';
-      }
-  
-      .fileUploader:nth-of-type(2) .custom-file-upload::before {
-        content: 'Rzuty nieruchomości';
-      }
-  
-      .fileUploader:nth-of-type(3) .custom-file-upload::before {
-        content: 'Świadectwo budynku';
-      }
-    }
-  
-    button {
-      font-size: 14px;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      background-color: #ff0083;
-      border-radius: 5px;
-      box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-  
-      &:hover {
-        box-shadow: 0 6px 9px #0000004d;
-      }
-  
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
+
+      .checkbox {
+        margin-top: 30px;
+        max-width: 150px;
+        input {
+          width: 30px;
+        }
       }
     }
 
-    .back {
-      position: absolute;
-      top: 120px;
-      right: 40px;
+
+
+    .fileUploader:nth-of-type(1) .custom-file-upload::before {
+      content: 'Zdjęcia budynku z zewnątrz';
+    }
+
+
+
+    .fileUploader:nth-of-type(2) .custom-file-upload::before {
+      content: 'Rzuty nieruchomości';
+    }
+
+    .fileUploader:nth-of-type(3) .custom-file-upload::before {
+      content: 'Świadectwo budynku';
     }
   }
-  
+
+  button {
+    font-size: 14px;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    background-color: #ff0083;
+    border-radius: 5px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 6px 9px #0000004d;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .back {
+    position: absolute;
+    top: 120px;
+    right: 40px;
+  }
+}

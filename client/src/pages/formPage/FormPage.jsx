@@ -29,7 +29,7 @@ export function getRequestId() {
 }
 
 export async function saveDraft(step, data) {
-  const id  = getRequestId();
+  const id = getRequestId();
   const ref = doc(collection(db, "cert_requests"), id);
 
   await setDoc(
@@ -121,15 +121,15 @@ export default function FormPage() {
     return savedData
       ? JSON.parse(savedData)
       : {
-          step1Data: {},
-          step2Data: {},
-          step3Data: {},
-          step4Data: {},
-          step5Data: {},
-          step6Data: {},
-          step7Data: {},
-          step8Data: {},
-        };
+        step1Data: {},
+        step2Data: {},
+        step3Data: {},
+        step4Data: {},
+        step5Data: {},
+        step6Data: {},
+        step7Data: {},
+        step8Data: {},
+      };
   });
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -421,7 +421,7 @@ export default function FormPage() {
             setData={(data) => updateFormData(5, data)}
             resetCurrentStep={resetCurrentStep}
             addSkippedQuestion={addSkippedQuestion}
-            saveDraft={saveDraft} 
+            saveDraft={saveDraft}
           />
         );
       case 6:
@@ -436,7 +436,7 @@ export default function FormPage() {
             setData={(data) => updateFormData(6, data)}
             resetCurrentStep={resetCurrentStep}
             addSkippedQuestion={addSkippedQuestion}
-            saveDraft={saveDraft} 
+            saveDraft={saveDraft}
           />
         );
       case 7:
@@ -518,12 +518,10 @@ export default function FormPage() {
               {showEmailForm && (
                 <EmailForm
                   onClose={handleCloseEmailForm}
-                  senderName={`${formData.step2Data.firstName || ""} ${
-                    formData.step2Data.lastName || ""
-                  }`}
-                  propertyAddress={`${formData.step3Data.ulica || ""} ${
-                    formData.step3Data.miasto || ""
-                  }`}
+                  senderName={`${formData.step2Data.firstName || ""} ${formData.step2Data.lastName || ""
+                    }`}
+                  propertyAddress={`${formData.step3Data.ulica || ""} ${formData.step3Data.miasto || ""
+                    }`}
                   from={formData.step2Data.email || ""}
                 />
               )}
@@ -531,19 +529,20 @@ export default function FormPage() {
           )}
 
           {renderStep()}
-          <button className="reset-button" onClick={handleResetClick}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 0 24 24"
-              width="24px"
-              fill="#5f6368"
-            >
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path d="M13 3c-4.97 0-9 4.03-9 9H1l4 3.99L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z" />
-            </svg>
-          </button>
+
         </div>
+        <button className="reset-button" onClick={handleResetClick}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="#5f6368"
+          >
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M13 3c-4.97 0-9 4.03-9 9H1l4 3.99L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z" />
+          </svg>
+        </button>
       </div>
 
       {showConfirmation && (
