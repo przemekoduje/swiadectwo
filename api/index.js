@@ -269,6 +269,21 @@ app.get("/suggested-questions/:step/:field", (req, res) => {
   res.json({ questions: filteredQuestions || [] });
 });
 
+// 📌 Endpoint do pobierania pytań tylko po kroku (bez pola)
+app.get("/suggested-questions/:step", (req, res) => {
+  const step = parseInt(req.params.step, 10);
+
+  if (isNaN(step)) {
+    return res.status(400).json({ error: "Nieprawidłowy numer kroku" });
+  }
+
+  const filteredQuestions = faqData
+    .filter((item) => item.step === step)
+    .map((item) => item.question);
+
+  res.json({ questions: filteredQuestions || [] });
+});
+
 // 📌 Endpoint `/chat` – obsługa zapytań użytkowników
 app.post("/chat", async (req, res) => {
   const userMessage = req.body.message;
