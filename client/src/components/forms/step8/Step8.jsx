@@ -58,9 +58,9 @@ export default function Step8({
 
   const handleNext = async () => {
     const photosUrls = await uploadArray(externalPhotos, 'external');
-    const planUrls   = await uploadArray(floorPlans,      'plans');
-    const certUrls   = await uploadArray(certificates,    'certs');
-  
+    const planUrls = await uploadArray(floorPlans, 'plans');
+    const certUrls = await uploadArray(certificates, 'certs');
+
     const payload = { photosUrls, planUrls, certUrls, noExternal, noPlan, noCert };
     saveDraft(8, payload);
     setData(payload);
@@ -72,114 +72,125 @@ export default function Step8({
       <h2 className="merriweather-light">Załaduj zdjęcia</h2>
 
       <div className="fileUploaders">
-        {/* External Photos */}
-        <div
-          className="fileUploader"
-          onDrop={(e) => handleDrop(e, setExternalPhotos)}
-          onDragOver={handleDragOver}
-        >
-          <label className="custom-file-upload lato-regular">
-            <input
-              type="file"
-              multiple
-              accept="image/*" // Restrict to image files
-              onChange={(e) => handleFileChange(e, setExternalPhotos)}
-            />
-            {/* <span>Zdjęcia budynku z zewnątrz</span> */}
-          </label>
 
-          <div className="file-preview">
-            {externalPhotos.map((file, index) => (
-              <div key={index} className="file-item">
-                <p className="lato-regular">{file.name}</p>
-                <button onClick={() => removeFile(file, setExternalPhotos)}>
-                  x
-                </button>
-              </div>
-            ))}
+        {/* External Photos */}
+        <div className="fileUploader_wrapper">
+          <div
+            className="fileUploader"
+            onDrop={(e) => handleDrop(e, setExternalPhotos)}
+            onDragOver={handleDragOver}
+          >
+            <label className="custom-file-upload lato-regular">
+              <input
+                type="file"
+                multiple
+                accept="image/*" // Restrict to image files
+                onChange={(e) => handleFileChange(e, setExternalPhotos)}
+              />
+              {/* <span>Zdjęcia budynku z zewnątrz</span> */}
+            </label>
+
+            <div className="file-preview">
+              {externalPhotos.map((file, index) => (
+                <div key={index} className="file-item">
+                  <p className="lato-regular">{file.name}</p>
+                  <button onClick={() => removeFile(file, setExternalPhotos)}>
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={noExternal}
+              onChange={(e) => setNoExternal(e.target.checked)}
+            />
+            nie mam zdjęcia
+          </label>
         </div>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            checked={noExternal}
-            onChange={(e) => setNoExternal(e.target.checked)}
-          />
-          Nie posiadam zdjęcia budynku z zewnątrz
-        </label>
+
 
         {/* Floor Plans */}
-        <div
-          className="fileUploader"
-          onDrop={(e) => handleDrop(e, setFloorPlans)}
-          onDragOver={handleDragOver}
-        >
-          <label className="custom-file-upload lato-regular">
-            <input
-              type="file"
-              multiple
-              accept="image/*" // Restrict to image files
-              onChange={(e) => handleFileChange(e, setFloorPlans)}
-            />
-            {/* <span>Rzuty nieruchomości</span> */}
-          </label>
 
-          <div className="file-preview">
-            {floorPlans.map((file, index) => (
-              <div key={index} className="file-item">
-                <p className="lato-regular">{file.name}</p>
-                <button onClick={() => removeFile(file, setFloorPlans)}>
-                  x
-                </button>
-              </div>
-            ))}
+        <div className="fileUploader_wrapper">
+          <div
+            className="fileUploader"
+            onDrop={(e) => handleDrop(e, setFloorPlans)}
+            onDragOver={handleDragOver}
+          >
+            <label className="custom-file-upload lato-regular">
+              <input
+                type="file"
+                multiple
+                accept="image/*" // Restrict to image files
+                onChange={(e) => handleFileChange(e, setFloorPlans)}
+              />
+              {/* <span>Rzuty nieruchomości</span> */}
+            </label>
+
+            <div className="file-preview">
+              {floorPlans.map((file, index) => (
+                <div key={index} className="file-item">
+                  <p className="lato-regular">{file.name}</p>
+                  <button onClick={() => removeFile(file, setFloorPlans)}>
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={noPlan}
+              onChange={(e) => setNoPlan(e.target.checked)}
+            />
+            nie mam zdjęcia
+          </label>
         </div>
 
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            checked={noPlan}
-            onChange={(e) => setNoPlan(e.target.checked)}
-          />
-          Nie posiadam rzutu nieruchomości
-        </label>
 
         {/* Certificates */}
-        <div
-          className="fileUploader"
-          onDrop={(e) => handleDrop(e, setCertificates)}
-          onDragOver={handleDragOver}
-        >
-          <label className="custom-file-upload lato-regular">
-            <input
-              type="file"
-              multiple
-              accept=".pdf,image/*" // Restrict to PDF and image files
-              onChange={(e) => handleFileChange(e, setCertificates)}
-            />
-            {/* <span>Świadectwo budynku</span> */}
-          </label>
+        <div className="fileUploader_wrapper">
+          <div
+            className="fileUploader"
+            onDrop={(e) => handleDrop(e, setCertificates)}
+            onDragOver={handleDragOver}
+          >
+            <label className="custom-file-upload lato-regular">
+              <input
+                type="file"
+                multiple
+                accept=".pdf,image/*" // Restrict to PDF and image files
+                onChange={(e) => handleFileChange(e, setCertificates)}
+              />
+              {/* <span>Świadectwo budynku</span> */}
+            </label>
 
-          <div className="file-preview">
-            {certificates.map((file, index) => (
-              <div key={index} className="file-item">
-                <p className="lato-regular">{file.name}</p>
-                <button onClick={() => removeFile(file, setCertificates)}>
-                  x
-                </button>
-              </div>
-            ))}
+            <div className="file-preview">
+              {certificates.map((file, index) => (
+                <div key={index} className="file-item">
+                  <p className="lato-regular">{file.name}</p>
+                  <button onClick={() => removeFile(file, setCertificates)}>
+                    x
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={noCert}
+              onChange={(e) => setNoCert(e.target.checked)}
+            />
+            nie mam zdjęcia
+          </label>
         </div>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            checked={noCert}
-            onChange={(e) => setNoCert(e.target.checked)}
-          />
-          Nie posiadam świadectwa budynku
-        </label>
+
       </div>
 
       <button className="back" onClick={prevStep}>

@@ -1,0 +1,66 @@
+.step9 {
+  .podsumowanie {
+    font-family: "ProductSans";
+    font-weight: 400;
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    max-width: 350px;
+    margin-bottom: 20px;
+  }
+
+  .summary{
+
+    .open-pdf {
+        font-size: 14px;
+        color: #ff0083;
+        padding: 12px 24px;
+        border: none;
+        background-color: #feb1d9;
+        border-radius: 5px;
+        box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+    
+        &:hover {
+          box-shadow: 0 6px 9px #0000004d;
+        }
+    
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+  }
+  .nav-buttons{
+
+    
+    position: absolute;
+    top: -100px;
+    right: 40px;
+    font-size: 14px;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    background-color: #ff0083;
+    border-radius: 5px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    .back{
+        background-color: #ff0083;
+        border: none;
+    }
+
+    &:hover {
+      box-shadow: 0 6px 9px #0000004d;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+

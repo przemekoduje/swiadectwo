@@ -14,6 +14,7 @@ export default function Step5({
   removeSkippedQuestion,
   handleFieldFocus,
   saveDraft,
+  saveSkippedQuestions,
 }) {
 
 
@@ -98,7 +99,7 @@ export default function Step5({
       // If szyby is 0, skip the question
       skipQuestion(name);
     } else if (value === "--Brak informacji") {
-      skipQuestion(name, getOptionsForQuestion(name));
+      skipQuestion(name, );
     } else {
       setTempSkippedQuestions((prev) =>
         prev.filter((item) => item.question !== name)
@@ -121,12 +122,26 @@ export default function Step5({
     }
   };
 
+  // const skipQuestion = (question) => {
+  //   if (!tempSkippedQuestions.some((item) => item.question === question)) {
+  //     setTempSkippedQuestions((prev) => [
+  //       ...prev,
+  //       { step: 5, question, options: getOptionsForQuestion(question) },
+  //     ]);
+  //   }
+  // };
+
   const skipQuestion = (question) => {
+    console.log("🔥 Skipping question:", question); // <-- DODAJ TO
+  
     if (!tempSkippedQuestions.some((item) => item.question === question)) {
-      setTempSkippedQuestions((prev) => [
-        ...prev,
-        { step: 5, question, options: getOptionsForQuestion(question) },
-      ]);
+      const skipped = {
+        step: 5,
+        question,
+        options: getOptionsForQuestion(question),
+      };
+      console.log("🔥 Dodaję do tempSkippedQuestions:", skipped); // <-- DODAJ TO
+      setTempSkippedQuestions((prev) => [...prev, skipped]);
     }
   };
 
@@ -136,11 +151,12 @@ export default function Step5({
       ...prevData,
       ...tempData,
     }));
-
+  
     setSkippedQuestions(tempSkippedQuestions);
-
+    saveSkippedQuestions(tempSkippedQuestions); // 🔥 Dodaj to tutaj
+  
     localStorage.setItem("step5FormData", JSON.stringify(tempData));
-
+  
     nextStep();
   };
 
@@ -154,33 +170,9 @@ export default function Step5({
 
   return (
     <div className="step5">
-      <h2 className="merriweather-light">Szczegółowe dane nieruchomości 5</h2>
+      <h2 className="merriweather-light">Szczegółowe dane nieruchomości</h2>
 
       <div className="inputs">
-        {/* Ogrzewanie */}
-        {/* <div className="input-wrapper">
-          <label
-            className={`lato-light ${tempData.ogrzewanie ? "active" : ""}`}
-          >
-            Wybierz rodzaj ogrzewania
-          </label>
-          <select
-            className="lato-light"
-            name="ogrzewanie"
-            value={tempData.ogrzewanie}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Wybierz rodzaj ogrzewania
-            </option>
-            {powOptions.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div> */}
 
         <CustomSelect
           label="Wybierz rodzaj ogrzewania"
@@ -194,30 +186,6 @@ export default function Step5({
           }}
         />
 
-        {/* Źródło ciepłej wody */}
-        {/* <div className="input-wrapper">
-          <label
-            className={`lato-light ${tempData.wodaciepla ? "active" : ""}`}
-          >
-            Wybierz źródło ciepłej wody
-          </label>
-          <select
-            className="lato-light"
-            name="wodaciepla"
-            value={tempData.wodaciepla}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Wybierz źródło ciepłej wody
-            </option>
-            {wodaOptions.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div> */}
 
         <CustomSelect
           label="Wybierz źródło ciepłej wody"
@@ -228,29 +196,6 @@ export default function Step5({
           onFocus={() => handleFieldFocus("wodaciepla")}
         />
 
-        {/* Grzejniki */}
-        {/* <div className="input-wrapper">
-          <label className={`lato-light ${tempData.grzejniki ? "active" : ""}`}>
-            Wybierz rodzaj grzejników
-          </label>
-          <select
-            className="lato-light"
-            name="grzejniki"
-            value={tempData.grzejniki}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Wybierz rodzaj grzejników
-            </option>
-            {grzejnikOptions.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        
         <CustomSelect
             label="Wybierz rodzaj grzejników"
             options={grzejnikOptions}
@@ -259,31 +204,6 @@ export default function Step5({
             name="grzejniki"
             onFocus={() => handleFieldFocus("grzejniki")}
           />
-        {/* Wentylacja */}
-        {/* <div className="input-wrapper">
-          <label
-            className={`lato-light ${tempData.wentylacja ? "active" : ""}`}
-          >
-            Wybierz rodzaj wentylacji
-          </label>
-          <select
-            className="lato-light"
-            name="wentylacja"
-            value={tempData.wentylacja}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>
-              Wybierz rodzaj wentylacji
-            </option>
-            {wentylOptions.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div> */}
-        
         <CustomSelect
             label="Wybierz rodzaj wentylacji"
             options={wentylOptions}

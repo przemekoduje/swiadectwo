@@ -9,7 +9,6 @@ export default function CustomSelect({
   name,
   onFocus,
 }) {
-  console.log(`🛠 CustomSelect został załadowany dla: ${name}`);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value);
@@ -23,7 +22,6 @@ export default function CustomSelect({
       onChange({ target: { name, value: option } });
 
       if (onFocus) {
-        console.log(`🎯 onFocus wywołane dla: ${name}`);
         onFocus(name); // Wywołanie `onFocus` po wyborze wartości
       }
     }
@@ -49,7 +47,6 @@ export default function CustomSelect({
       ref={dropdownRef}
       tabIndex={0} // Dodajemy focus na cały wrapper
       onFocus={() => {
-        console.log(`🔥 onFocus działa dla: ${name}`);
         if (onFocus) onFocus(name);
       }}
     >

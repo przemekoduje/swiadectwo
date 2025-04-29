@@ -23,32 +23,31 @@ export default function Step1({ nextStep }) {
 
   return (
     <div className="step1">
-      <h2 className="merriweather-light">Hej, jestem Przemek.</h2>
+      <h2 className="merriweather-light">Hej, tu Przemek.</h2>
       <div className="dates">
         <p>W kilku punktach przedstawiam proces przygotowania świadectwa:</p>
-        <ol>
+        <ul>
           <li>
             Wypełnij do końca odpowiedzi w formularzu. Formularz podzielony jest
             na klika kroków.
           </li>
-          <li>Jeśli nie znasz odpowiedzi - wybierz “Brak informacji”</li>
+          <li>Jeśli nie znasz odpowiedzi - wybierz “Brak informacji lub '0' w odpowiednim miejscu.”</li>
           <li>
-            Zestaw pytań do Zarządcy zostanie przygotowany zostanie w ten sposób
-            do wysłania na wskazanego maila na końcu formularza.
+            W ten sposób zostanie przygotowany zestaw pytań do Zarządcy. Bedzie automatycznie gotowy do wysłania na wskazanego maila na końcu formularza.
           </li>
           <li>
             Zarządca przygotuje odpowiedzi na brakujące pytania i wyśle je
-            prosto do nas
+            prosto do nas.
           </li>
           <li>
-            My w miedzyczasie zadzwonimy do Ciebie aby omówić szczegóły
+            My w miedzyczasie skontaktujemy sie z Tobą aby omówić szczegóły
             zlecenia.
           </li>
           <li>
             Przygotowujemy nastepnie świadectwo i wysyłamy w ustalonej formie.
           </li>
-        </ol>
-        <p>Wszystko może trwa nawet tylko 48 godzin. </p>
+        </ul>
+        <p>Wszystko może trwać nawet tylko 24 godziny. </p>
         <p>Idziemy dalej?</p>
       </div>
       {/* Przycisk "Dalej" jest aktywny tylko, gdy wybrano jedną z opcji */}

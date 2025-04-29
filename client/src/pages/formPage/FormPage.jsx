@@ -15,7 +15,13 @@ import jsPDF from "jspdf";
 import ChatWidget from "chat-widget";
 // import { generatePDF } from "../../utils/pdfUtils";
 
-import { addDoc, collection, serverTimestamp, doc, setDoc, } from "firebase/firestore";
+import {
+  collection,
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase"; // ścieżka do Twojej inicjalizacji
 
 /* --- Firestore helpers ------------------------------------ */
@@ -29,15 +35,17 @@ export function getRequestId() {
 }
 
 export async function saveDraft(step, data) {
-  const id  = getRequestId();
+  const id = getRequestId();
   const ref = doc(collection(db, "cert_requests"), id);
+
+  const snap = await getDoc(ref);
 
   await setDoc(
     ref,
     {
       [`form.step${step}`]: data,
       status: "DRAFT",
-      "timestamps.createdAt": serverTimestamp(),
+      ...(snap.exists() ? {} : { "timestamps.createdAt": serverTimestamp() }),
     },
     { merge: true }
   );
@@ -45,7 +53,7 @@ export async function saveDraft(step, data) {
 
 export async function finishRequest() {
   const id = localStorage.getItem("currentRequestId");
-  if (!id) return;                         // brak id → nic do roboty
+  if (!id) return;
 
   const ref = doc(collection(db, "cert_requests"), id);
   await setDoc(
@@ -57,10 +65,17 @@ export async function finishRequest() {
     { merge: true }
   );
   localStorage.removeItem("currentRequestId");
+  localStorage.removeItem("formData"); // Dodaj to
 }
 
+export async function saveSkippedQuestions(questions) {
+  const id = getRequestId();
+  console.log("💾 Zapisuję skippedQuestions do Firestore dla ID:", id);
+  console.log("💾 Pytania:", questions);
+  const ref = doc(collection(db, "cert_requests"), id);
 
-
+  await setDoc(ref, { skippedQuestions: questions }, { merge: true });
+}
 
 export default function FormPage() {
   const [currentStep, setCurrentStep] = useState(() => {
@@ -71,10 +86,67 @@ export default function FormPage() {
   const [skippedQuestions, setSkippedQuestions] = useState([]);
   const [suggestedQuestions, setSuggestedQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(null);
+  const [firestoreSkippedQuestions, setFirestoreSkippedQuestions] = useState(
+    []
+  );
+  const [firestoreFormData, setFirestoreFormData] = useState({});
+
+  // Funkcja dodająca pytanie do pominiętych, z opcjami
+  const addSkippedQuestion = (step, question, options = []) => {
+    setSkippedQuestions((prevQuestions) => {
+      const updated = [...prevQuestions, { step, question, options }];
+      console.log("💾 Chcę zapisać skippedQuestions:", updated);
+      saveSkippedQuestions(updated); // 🔥 Zapis do Firestore
+      return updated;
+    });
+  };
+
+  useEffect(() => {
+    const fetchRequest = async () => {
+      const id = localStorage.getItem("currentRequestId");
+      if (!id) return;
+
+      const ref = doc(db, "cert_requests", id);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        console.log("🔥 Dane z Firestore po refreshu:", data);
+        // 🔥 Wydobądź skippedQuestions z Firestore jeśli tam je zapisujesz!
+        if (data.skippedQuestions) {
+          setSkippedQuestions(data.skippedQuestions);
+        }
+        if (data.form) {
+          console.log("🔥 FormData z Firestore:", data.form);
+          setFirestoreFormData(data.form);
+        }
+      }
+    };
+
+    fetchRequest();
+  }, []);
+
+  useEffect(() => {
+    const fetchFirestoreSkipped = async () => {
+      const id = localStorage.getItem("currentRequestId");
+      if (!id) return;
+
+      const ref = doc(db, "cert_requests", id);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        console.log("📥 Skipped z Firestore dla PDF:", data.skippedQuestions);
+        setFirestoreSkippedQuestions(data.skippedQuestions || []);
+      }
+    };
+
+    fetchFirestoreSkipped();
+  }, [currentStep]);
 
   // 📌 Pobieranie sugerowanych pytań na podstawie aktualnego kroku formularza
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_BASE}/suggested-questions/${currentStep}`)
+    fetch(
+      `${process.env.REACT_APP_API_BASE}/suggested-questions/${currentStep}`
+    )
       .then((res) => res.json())
       .then((data) => setSuggestedQuestions(data.questions))
       .catch((err) => console.error("Błąd pobierania pytań:", err));
@@ -82,31 +154,15 @@ export default function FormPage() {
 
   // 📌 Dynamiczna zmiana pytania na podstawie aktywnego inputa
   const handleFieldFocus = (fieldName) => {
-    console.log(
-      `🔍 Wysyłam zapytanie o pytania dla: step=${currentStep}, field=${fieldName}`
-    );
-
     fetch(
       `${process.env.REACT_APP_API_BASE}/suggested-questions/${currentStep}/${fieldName}`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("Pobrane pytania:", data.questions);
         setSuggestedQuestions(data.questions);
       })
       .catch((err) => console.error("Błąd pobierania pytań:", err));
   };
-
-  // const stepQuestions = {
-  //   1: ["Jak uzyskać świadectwo energetyczne?", "Jak długo jest ważne?"],
-  //   2: ["Jakie dokumenty są potrzebne?", "Czy oferujecie rabaty?"],
-  //   3: ["Jak działa audyt?", "Czy audyt jest obowiązkowy?"],
-  //   4: ["Czy mogę uzyskać dofinansowanie?", "Jakie są wymagania prawne?"],
-  //   5: ["Jakie są możliwe źródła ciepła w budynku?", "Czy pompa ciepła jest lepsza od gazu?"],
-  //   6: ["Jakie są standardy izolacji?", "Czym różni się styropian od wełny mineralnej?"],
-  //   7: ["Czy warto inwestować w rekuperację?", "Jak działa wentylacja mechaniczna?"],
-  //   8: ["Jak poprawić efektywność energetyczną?", "Jak oszczędzać na ogrzewaniu?"],
-  // };
 
   const handleShowEmailForm = () => {
     setShowEmailForm(true);
@@ -139,7 +195,7 @@ export default function FormPage() {
     localStorage.setItem("currentStep", currentStep);
   }, [formData, currentStep]);
 
-  const resetForm = () => {
+  const resetForm = async () => {
     localStorage.removeItem("step1SelectedOption");
     localStorage.removeItem("step7SelectedOptions");
     localStorage.removeItem("formData");
@@ -153,6 +209,16 @@ export default function FormPage() {
     localStorage.removeItem("step7SelectedOpti");
 
     localStorage.removeItem("currentRequestId");
+
+    const id = localStorage.getItem("currentRequestId");
+    if (id) {
+      const ref = doc(db, "cert_requests", id);
+      await setDoc(
+        ref,
+        { form: {}, skippedQuestions: [], status: "RESET" },
+        { merge: true }
+      );
+    }
 
     setFormData({
       step1Data: {},
@@ -206,14 +272,6 @@ export default function FormPage() {
     });
   };
 
-  // Funkcja dodająca pytanie do pominiętych, z opcjami
-  const addSkippedQuestion = (step, question, options = []) => {
-    setSkippedQuestions((prevQuestions) => [
-      ...prevQuestions,
-      { step, question, options },
-    ]);
-  };
-
   const handleResetClick = () => {
     setShowConfirmation(true);
   };
@@ -265,46 +323,92 @@ export default function FormPage() {
     izolacjagrubosc: "Grubość materiału izolacyjnego",
     rok: "Rok oddania budynku do użytku",
     termo: "Rok ostatniej termomodernizacji",
+    noExternal: "Brak zdjęcia budynku z zewnątrz",
+    noPlan: "Brak rzutu nieruchomości",
+    noCert: "Brak świadectwa budynku",
   };
 
-  const generateAndSendPDF = async (questions, { from, to, note }) => {
-    // 1. budujemy Blob tak samo jak w podglądzie
-    const pdfBlob = await generatePDF(questions);
+  const generateAndSendPDF = async ({ from, to, note }) => {
+    const id = localStorage.getItem("currentRequestId");
 
-    // 2. upload na backend
+    if (!id) {
+      console.error("Brak currentRequestId w localStorage");
+      return;
+    }
+
+    // 1️⃣ Pobieramy dane z Firestore
+    const ref = doc(db, "cert_requests", id);
+    const snap = await getDoc(ref);
+    const firestoreData = snap.data();
+    console.log("📥 Pobieram z Firestore do PDF:", firestoreData);
+    console.log("📥 Form do PDF:", firestoreData.form);
+
+    // if (!firestoreData || !firestoreData.form) {
+    //   console.error("Brak danych formularza w Firestore");
+    //   return;
+    // }
+
+    const form = firestoreData.form;
+
+    // 🔎 Możesz tu zrobić dodatkowe sprawdzenie np. braków, jak chcesz
+
+    // 2️⃣ Generujemy PDF z danych Firestore
+    const pdfBlob = await generatePDF(
+      firestoreData.skippedQuestions || [],
+      firestoreData.form || {}
+    );
+    console.log("✅ PDF wygenerowany");
+
+    // 3️⃣ Upload PDF do backendu
     const data = new FormData();
     data.append("pdf", pdfBlob, "pytania.pdf");
 
+    console.log("📤 Wysyłam PDF na backend...");
     await fetch(`${process.env.REACT_APP_API_BASE}/api/upload-pdf`, {
       method: "POST",
       body: data,
     });
+    console.log("✅ PDF wysłany");
 
-    // 3. wysyłka maila (backend już zna ścieżkę PDF‑a)
-    await fetch(`${process.env.REACT_APP_API_BASE}/api/send-email`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to, note }),
-    });
+    console.log("📧 Wysyłam e-mail...");
 
-    await finishRequest(); resetForm();
+    console.log("📧 Payload do wysyłki maila:", { from, to, note });
+    const emailRes = await fetch(
+      `${process.env.REACT_APP_API_BASE}/api/send-email`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ from, to, note }),
+      }
+    );
 
-    /* 3. ZAPIS DO FIRESTORE ----------------------------- */
-    const agentPhone =
-      new URLSearchParams(window.location.search).get("ref") || null;
-    const clientPhone = formData.step2Data.phone || null;
-
-    // tylko jeśli któryś numer istnieje
-    if (clientPhone || agentPhone) {
-      await addDoc(collection(db, "leads_submitted"), {
-        agentPhone,
-        clientPhone,
-        timestamp: serverTimestamp(),
-      });
+    if (!emailRes.ok) {
+      const errorText = await emailRes.text();
+      console.error("❌ Błąd wysyłki e-maila:", emailRes.status, errorText);
+      return; // Zatrzymaj dalej
     }
+    console.log("✅ E-mail wysłany");
+
+    // 5️⃣ Zmieniamy status w Firestore + czyścimy localStorage
+    await setDoc(
+      ref,
+      {
+        status: "SUBMITTED",
+        "timestamps.sentAt": serverTimestamp(),
+        skippedQuestions: firestoreData.skippedQuestions || [],
+      },
+      { merge: true }
+    );
+
+    localStorage.removeItem("currentRequestId");
+    localStorage.removeItem("formData");
   };
 
-  const generatePDF = async (skippedQuestions) => {
+  const generatePDF = async (skippedQuestions, firestoreForm) => {
+    console.log("🔥 Start generowania PDF");
+    console.log("🔥 Skipped Questions:", skippedQuestions);
+    console.log("🔥 FirestoreForm w generatePDF:", firestoreForm);
+
     const doc = new jsPDF();
 
     /* ——— Ładowanie czcionki (jeśli potrzebujesz) ——— */
@@ -323,19 +427,47 @@ export default function FormPage() {
     let y = 30; // aktualna pozycja
     const line = 8; // wysokość linii
 
-    skippedQuestions.forEach(({ step, question, options = [] }, idx) => {
-      // pytanie
-      const prettyQuestion = LABELS[question] || question; // fallback
+    const extraMissingFiles = [];
+    const files = firestoreForm.step8 || {}; // Użyj firestoreFormData
+
+    if (files.noExternal) {
+      extraMissingFiles.push({ step: 8, question: "noExternal" });
+    }
+    if (files.noPlan) {
+      extraMissingFiles.push({ step: 8, question: "noPlan" });
+    }
+    if (files.noCert) {
+      extraMissingFiles.push({ step: 8, question: "noCert" });
+    }
+
+    const missingFields = [];
+    Object.entries(firestoreForm || {}).forEach(([stepKey, stepData]) => {
+      Object.entries(stepData || {}).forEach(([field, value]) => {
+        if (value === "--Brak informacji") {
+          missingFields.push({
+            step: parseInt(stepKey.replace("step", ""), 10),
+            question: field,
+          });
+        }
+      });
+    });
+
+    const allQuestions = [
+      ...skippedQuestions,
+      ...extraMissingFiles,
+      ...missingFields,
+    ];
+
+    allQuestions.forEach(({ step, question, options = [] }, idx) => {
+      const prettyQuestion = LABELS[question] || question;
       doc.text(`${idx + 1}. ${prettyQuestion}`, 20, y);
       y += line;
 
-      // ewentualne opcje
-      options.forEach((opt) => {
+      (options || []).forEach((opt) => {
         doc.text(`- ${opt}`, 30, y);
         y += line;
       });
 
-      // jeśli zbliżamy się do końca strony
       if (y > 280) {
         doc.addPage();
         y = 20;
@@ -421,7 +553,8 @@ export default function FormPage() {
             setData={(data) => updateFormData(5, data)}
             resetCurrentStep={resetCurrentStep}
             addSkippedQuestion={addSkippedQuestion}
-            saveDraft={saveDraft} 
+            saveDraft={saveDraft}
+            saveSkippedQuestions={saveSkippedQuestions} // 🔥 Dodaj to
           />
         );
       case 6:
@@ -436,7 +569,8 @@ export default function FormPage() {
             setData={(data) => updateFormData(6, data)}
             resetCurrentStep={resetCurrentStep}
             addSkippedQuestion={addSkippedQuestion}
-            saveDraft={saveDraft} 
+            saveDraft={saveDraft}
+            saveSkippedQuestions={saveSkippedQuestions} // ← DODAJ TO!
           />
         );
       case 7:
@@ -475,10 +609,14 @@ export default function FormPage() {
       case 9:
         return (
           <Step9
-            skippedQuestions={skippedQuestions}
-            formData={formData}
-            generatePDF={generatePDF}
+            skippedQuestions={firestoreSkippedQuestions}
+            formData={
+              Object.keys(firestoreFormData).length > 0
+                ? firestoreFormData
+                : formData
+            }
             generateAndSendPDF={generateAndSendPDF}
+            generatePDF={generatePDF}
             prevStep={prevStep}
             resetForm={resetForm}
           />
@@ -492,7 +630,7 @@ export default function FormPage() {
   return (
     <div className="form-page">
       {/* ✅ Chatbot dynamicznie zmienia pytania w zależności od kroku formularza */}
-      <ChatWidget suggestedQuestions={suggestedQuestions} />
+      <ChatWidget className="chat-widget" suggestedQuestions={suggestedQuestions} />
 
       <div className={`content ${showConfirmation ? "blur-background" : ""}`}>
         <div className="headPhoto">
@@ -501,11 +639,7 @@ export default function FormPage() {
         <hr className="full-width-line" />
 
         <div className="left-section">
-          <img
-            src="/images/back05 2.png"
-            alt="Background"
-            className="reacting-image"
-          />
+          
         </div>
 
         <div className="right-section">
@@ -531,19 +665,19 @@ export default function FormPage() {
           )}
 
           {renderStep()}
-          <button className="reset-button" onClick={handleResetClick}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 0 24 24"
-              width="24px"
-              fill="#5f6368"
-            >
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path d="M13 3c-4.97 0-9 4.03-9 9H1l4 3.99L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z" />
-            </svg>
-          </button>
         </div>
+        <button className="reset-button" onClick={handleResetClick}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="#5f6368"
+          >
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M13 3c-4.97 0-9 4.03-9 9H1l4 3.99L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z" />
+          </svg>
+        </button>
       </div>
 
       {showConfirmation && (

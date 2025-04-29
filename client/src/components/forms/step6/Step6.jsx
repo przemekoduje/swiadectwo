@@ -14,6 +14,7 @@ export default function Step6({
   removeSkippedQuestion,
   handleFieldFocus,
   saveDraft,
+  saveSkippedQuestions
 }) {
   // const [powOptions] = useState([
   //   "--Brak informacji",
@@ -115,20 +116,21 @@ export default function Step6({
   };
 
   const handleNextStep = () => {
+    saveDraft(6, tempData); // draft
+  
     setData((prevData) => ({
       ...prevData,
       ...tempData,
     }));
-
-    saveDraft(6, tempData);                //  ← NOWA linijka
-    setData(prev => ({ ...prev, ...tempData }));
-
-    setSkippedQuestions(tempSkippedQuestions);
-
+  
+    setSkippedQuestions(tempSkippedQuestions); // lokalnie
+    saveSkippedQuestions(tempSkippedQuestions); // 🔥 dodaj to!
+  
     localStorage.setItem("step6FormData", JSON.stringify(tempData));
-
+  
     nextStep();
   };
+  
 
   const isFormValid = () => {
     const allFieldsFilled = Object.values(tempData).every(

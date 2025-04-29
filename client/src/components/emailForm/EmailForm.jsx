@@ -48,7 +48,7 @@ const EmailForm = ({
     <div className="email-form-popup lato-light">
       <form onSubmit={handleSubmit}>
         <label>
-          <p className="lato-regular">Imię i nazwisko:</p>
+          <p className="lato-regular">Twoje Imię i nazwisko:</p>
           <input
             type="text"
             value={senderName}

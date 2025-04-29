@@ -40,7 +40,7 @@ export default function Step2({ nextStep, prevStep, setData, saveDraft }) {
   return (
     <div className="step2">
       <h2 className="merriweather-light">Poznajmy się zatem proszę</h2>
-      <p>Poniższe dane umoliwią nam późniejszy kontakt</p>
+      <p>Poniższe dane umożliwią nam późniejszy kontakt</p>
       <div className="inputs">
         <div className="input-wrapper">
           <input

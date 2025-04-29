@@ -1,6 +1,6 @@
 .form-page {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   position: relative;
 
@@ -30,21 +30,22 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    
+
     h3 {
       margin-bottom: 20px;
       text-align: center;
     }
+
     p {
       margin-bottom: 30px;
       text-align: center;
     }
-  
+
     .confirmation-buttons {
       display: flex;
       justify-content: space-between;
       width: 50%;
-  
+
       button {
         color: white;
         padding: 10px;
@@ -54,14 +55,15 @@
         flex: 1;
         margin: 0 5px;
         background-color: #f0f0f0;
+
         &:hover {
           background-color: #bbbaba;
         }
-    
+
         &:first-child {
-          background-color: #FF0083; // Styl dla pierwszego przycisku (np. tak)
+          background-color: #ff0083; // Styl dla pierwszego przycisku (np. tak)
         }
-    
+
         &:last-child {
           background-color: #f0f0f0; // Styl dla drugiego przycisku (np. nie)
           color: rgb(133, 133, 133);
@@ -76,8 +78,8 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 4;
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
 
     img {
       width: 100%;
@@ -105,11 +107,27 @@
     width: 60vw;
     height: 100%;
     z-index: 1;
+    position: relative;
+    background-image: url("../../../public/images/back05 2.png");
+    background-size: cover; /* lub contain, lub konkretny rozmiar */
+    background-repeat: no-repeat; /* żeby się nie powtarzało */
+    background-position: center; /* wycentrowanie obrazu */
 
-    img {
-      width: 100%;
+    // Nakładka gradientu
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%; // nakładka na całą szerokość sekcji
       height: 100%;
-      object-fit: cover;
+      background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1) 0%,
+        // prawa strona biała
+        rgba(255, 255, 255, 0) 100% // lewa przezroczysta
+      );
+      pointer-events: none; // nie blokuj kliknięć na obrazek pod spodem
     }
   }
 
@@ -118,44 +136,50 @@
     top: 0;
     right: 0;
     width: 50vw;
-    min-width: 600px;
+    min-width: 320px;
     height: 100%;
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.95) 5%,
-      rgba(255, 255, 255, 0.9) 10%,
-      rgba(255, 255, 255, 0.85) 15%,
-      rgba(255, 255, 255, 0.8) 20%,
-      rgba(255, 255, 255, 0.75) 25%,
-      rgba(255, 255, 255, 0.7) 30%,
-      rgba(255, 255, 255, 0.65) 35%,
-      rgba(255, 255, 255, 0.6) 40%,
-      rgba(255, 255, 255, 0.55) 45%,
-      rgba(255, 255, 255, 0.5) 50%,
-      rgba(255, 255, 255, 0.45) 55%,
-      rgba(255, 255, 255, 0.4) 60%,
-      rgba(255, 255, 255, 0.35) 65%,
-      rgba(255, 255, 255, 0.3) 70%,
-      rgba(255, 255, 255, 0.25) 75%,
-      rgba(255, 255, 255, 0.2) 80%,
-      rgba(255, 255, 255, 0.15) 85%,
-      rgba(255, 255, 255, 0.1) 90%,
-      rgba(255, 255, 255, 0.05) 95%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    z-index: 2;
+    z-index: 2; // nachodzi na left-section
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 140px;
 
-    .reset-button {
-      position: absolute;
-      top: 40px;
-      right: 40px;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 1) 60%,
+      // 60% białe
+      rgba(255, 255, 255, 0) 100% // potem płynnie do przezroczystego
+    );
+  }
+
+  .reset-button {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 425px) {
+  .form-page {
+
+    .chat-widget-icon{
+      display: none;
+    }
+    .right-section {
+      width: 100vw;
+    }
+
+    .left-section{
+      background-image: none;
+    }
+
+    .confirmation-popup{
+      max-width: 90%;
+      height: 200px;
     }
   }
 }

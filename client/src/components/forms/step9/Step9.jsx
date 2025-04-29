@@ -2,12 +2,9 @@ import React from "react";
 import EmailForm from "../../emailForm/EmailForm";
 import "./step9.scss";
 
-/**
- * Krok 9 – podsumowanie.
- * Wyświetla pominięte pytania, umożliwia podgląd PDF‑a
- * i wysłanie go (razem z notatką) do zarządcy.
- */
+
 export default function Step9({
+  firestoreSkippedQuestions, // lista { step, question, options }
   skippedQuestions = [], // lista { step, question, options }
   formData = {}, // wszystkie dane z poprzednich kroków
   generatePDF, // ➜ async (skippedQuestions) => BlobfinishRequest
@@ -16,10 +13,6 @@ export default function Step9({
   prevStep, // cofnięcie do kroku 8
   resetForm, // rozpoczęcie od nowa
 }) {
-  /* =====================================
-   *  Dane wczytane z formData – uzupełnią EmailForm
-   * ===================================== */
-  
   
   
   const {
@@ -47,14 +40,15 @@ export default function Step9({
     .filter((key) => files[key]) // true = klient NIE ma pliku
     .map((key) => ({ step: 8, question: missingLabels[key] }));
 
-    const allQuestions = [...skippedQuestions, ...extra];
+    const allQuestions = [...(firestoreSkippedQuestions || []), ...extra];
+
   
-  const handleEmail = (from, to, note) =>
-  generateAndSendPDF(allQuestions, { from, to, note });
+    const handleEmail = (from, to, note) =>
+    generateAndSendPDF({ from, to, note });
 
   return (
     <div className="step9">
-      <h2 className="merriweather-light">Podsumowanie</h2>
+      <h2 className="podsumowanie">Podsumowanie</h2>
       {/* 👉 tutaj możesz dopisać dowolne "kilka słów wyjaśnienia" */}
       <p className="lato-light">
         Poniżej znajdziesz listę pytań, na które nie udzielono odpowiedzi oraz
@@ -67,12 +61,13 @@ export default function Step9({
       <div className="summary">
         {/* 1. Podgląd PDF‑a */}
         <button
+        className="open-pdf"
           onClick={async () => {
             try {
               const pdfBlob = await generatePDF([
                 ...skippedQuestions,
                 ...extra,
-              ]);
+              ], formData);
               const pdfUrl = URL.createObjectURL(pdfBlob);
               window.open(pdfUrl, "_blank");
             } catch (err) {
@@ -88,12 +83,7 @@ export default function Step9({
           Uzupełnij poniższe dane i wyślij plik PDF z pytaniami do zarządcy.
         </p>
 
-        {/* 3. Debug – można usunąć w produkcji */}
-        {console.log("Dane przekazywane do EmailForm:", {
-          senderName,
-          propertyAddress,
-          from: email,
-        })}
+      
 
         {/* 4. Formularz e‑mail – dane wstępnie uzupełnione */}
         <EmailForm
@@ -111,9 +101,9 @@ export default function Step9({
         <button className="back" onClick={prevStep}>
           &#x2190;
         </button>
-        <button className="reset-button" onClick={resetForm}>
+        {/* <button className="reset-button" onClick={resetForm}>
           Zacznij od nowa
-        </button>
+        </button> */}
       </div>
     </div>
   );

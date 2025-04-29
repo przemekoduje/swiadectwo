@@ -4,16 +4,23 @@
   align-items: center;
 
   h2 {
+    font-family: "ProductSans";
     font-size: 40px;
     text-align: center;
-    margin-bottom: 90px;
+    margin-bottom: 40px;
+  }
+  p {
+    font-family: "ProductSans";
+    font-weight: 200;
+    max-width: 300px;
+    margin-bottom: 25px;
   }
 
   .inputs {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 90px;
+    margin-bottom: 60px;
 
     .input-wrapper {
       position: relative;
@@ -29,10 +36,8 @@
         position: relative;
         font-size: 16px;
         color: #4a4a4a;
-
-        
       }
-      label{
+      label {
         position: absolute;
         left: 20px;
         top: 50%;
@@ -41,7 +46,6 @@
         font-size: 16px;
         pointer-events: none;
         transition: all 0.3s ease;
-       
       }
       input:focus + label,
       label.active {
@@ -50,8 +54,6 @@
         color: rgb(188, 188, 188);
         transform: translateY(20%);
       }
-
-
     }
   }
 
@@ -79,7 +81,41 @@
   }
   .back {
     position: absolute;
-    top: 120px;
+    top: -40px;
     right: 40px;
+  }
+}
+
+@media (max-width: 425px) {
+  .step2 {
+    h2 {
+      font-size: 26px;
+      max-width: 320px;
+      margin-bottom: 20px;
+    }
+    p {
+      max-width: 300px;
+      font-size: 14px;
+    }
+    .inputs {
+      width: 100%;
+      max-width: 300px;
+      
+      .input-wrapper {
+        input {
+          width: 100%;
+
+          padding: 20px 10px;
+          // width: 300px;
+          font-size: 14px;
+          color: #4a4a4a;
+        }
+      }
+    }
+    .back {
+      font-size: 12px;
+      padding: 8px 17px;
+      border-radius: 3px;
+    }
   }
 }

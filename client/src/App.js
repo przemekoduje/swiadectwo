@@ -14,7 +14,6 @@ import FormPage from '../src/pages/formPage/FormPage'
 import ChatPage from './pages/chatPage/ChatPage';
 import Landing from './pages/landing/Landing';
 import AdminPanel from './pages/adminPanel/AdminPanel';
-import ClientForm from './clientFormTemp/ClientFormTemp';
 
 const Layout = () => {
   return (
@@ -65,10 +64,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminPanel />
   },
-  {
-    path: "/clientForm",
-    element: <ClientForm />
-  },
+  
   
 
 ]);
