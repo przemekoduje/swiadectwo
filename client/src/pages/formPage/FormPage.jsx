@@ -91,6 +91,24 @@ export default function FormPage() {
   );
   const [firestoreFormData, setFirestoreFormData] = useState({});
 
+  useEffect(() => {
+    const handleBlur = () => {
+      // Poczekaj chwilę aż klawiatura zniknie, wtedy scroll na górę
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        document.body.style.zoom = "1"; // przywróć zoom (na Android)
+      }, 100);
+    };
+  
+    const inputs = document.querySelectorAll("input, textarea");
+    inputs.forEach((input) => input.addEventListener("blur", handleBlur));
+  
+    return () => {
+      inputs.forEach((input) => input.removeEventListener("blur", handleBlur));
+    };
+  }, []);
+
+
   // Funkcja dodająca pytanie do pominiętych, z opcjami
   const addSkippedQuestion = (step, question, options = []) => {
     setSkippedQuestions((prevQuestions) => {

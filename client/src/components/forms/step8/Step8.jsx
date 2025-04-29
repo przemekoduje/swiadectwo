@@ -94,7 +94,7 @@ export default function Step8({
               {externalPhotos.map((file, index) => (
                 <div key={index} className="file-item">
                   <p className="lato-regular">{file.name}</p>
-                  <button onClick={() => removeFile(file, setExternalPhotos)}>
+                  <button className="file-item-btn" onClick={() => removeFile(file, setExternalPhotos)}>
                     x
                   </button>
                 </div>
@@ -107,7 +107,7 @@ export default function Step8({
               checked={noExternal}
               onChange={(e) => setNoExternal(e.target.checked)}
             />
-            nie mam zdjęcia
+             brak zdjęcia
           </label>
         </div>
 
@@ -134,7 +134,7 @@ export default function Step8({
               {floorPlans.map((file, index) => (
                 <div key={index} className="file-item">
                   <p className="lato-regular">{file.name}</p>
-                  <button onClick={() => removeFile(file, setFloorPlans)}>
+                  <button className="file-item-btn" onClick={() => removeFile(file, setFloorPlans)}>
                     x
                   </button>
                 </div>
@@ -148,7 +148,7 @@ export default function Step8({
               checked={noPlan}
               onChange={(e) => setNoPlan(e.target.checked)}
             />
-            nie mam zdjęcia
+             brak zdjęcia
           </label>
         </div>
 
@@ -174,7 +174,7 @@ export default function Step8({
               {certificates.map((file, index) => (
                 <div key={index} className="file-item">
                   <p className="lato-regular">{file.name}</p>
-                  <button onClick={() => removeFile(file, setCertificates)}>
+                  <button className="file-item-btn" onClick={() => removeFile(file, setCertificates)}>
                     x
                   </button>
                 </div>
@@ -187,7 +187,7 @@ export default function Step8({
               checked={noCert}
               onChange={(e) => setNoCert(e.target.checked)}
             />
-            nie mam zdjęcia
+            brak zdjęcia
           </label>
         </div>
 
@@ -196,7 +196,7 @@ export default function Step8({
       <button className="back" onClick={prevStep}>
         &#x2190;
       </button>
-      <button onClick={handleNext}>Zakończ</button>
+      <button className="step8-btn" onClick={handleNext}>Zakończ</button>
     </div>
   );
 }

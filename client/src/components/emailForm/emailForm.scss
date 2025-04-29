@@ -16,8 +16,9 @@
         margin-left: auto;
       }
     }
+
     button {
-        width: 150px;
+      width: 150px;
       font-size: 14px;
       color: white;
       padding: 12px 24px;
@@ -26,6 +27,7 @@
       border-radius: 5px;
       box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
       cursor: pointer;
+      margin-top: 25px;
 
       &:hover {
         box-shadow: 0 6px 9px #0000004d;
@@ -35,6 +37,33 @@
         background-color: #ccc;
         cursor: not-allowed;
       }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .email-form-popup {
+
+
+    form {
+      label {
+
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 20px;
+        
+
+        p {
+          font-size: 12px;
+          width: 120px;
+        }
+
+        input {
+          width: 180px;
+          margin-left: 0;
+        }
+      }
+
     }
   }
 }

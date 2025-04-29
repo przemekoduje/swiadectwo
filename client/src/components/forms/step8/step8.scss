@@ -73,13 +73,17 @@
               font-size: 10px;
             }
 
-            button {
+            .file-item-btn {
               background-color: #ff0083;
               border: none;
               color: white;
-              padding: 2px 5px;
-              border-radius: 5px;
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
               cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
 
               &:hover {
                 background-color: #e60077;
@@ -92,6 +96,7 @@
       .checkbox {
         margin-top: 30px;
         max-width: 150px;
+
         input {
           width: 30px;
         }
@@ -100,18 +105,24 @@
 
     .fileUploader_wrapper:nth-of-type(1) .custom-file-upload::before {
       content: "Zdjęcia budynku z zewnątrz";
+      // content: "1";
+
     }
 
     .fileUploader_wrapper:nth-of-type(2) .custom-file-upload::before {
-      content: "Rzuty nieruch";
+      content: "Rzuty nieruchomości";
+      // content: "2";
+
     }
 
     .fileUploader_wrapper:nth-of-type(3) .custom-file-upload::before {
-      content: "Świadectwo";
+      content: "Świadectwo dla budynku";
+      // content: "3";
+
     }
   }
 
-  button {
+  .step8-btn {
     font-size: 14px;
     color: white;
     padding: 12px 24px;
@@ -135,46 +146,91 @@
     position: absolute;
     top: -40px;
     right: 40px;
+    background-color: #ff0083;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
   }
 }
 
 @media (max-width: 425px) {
   .step8 {
     width: 100vw;
+
     h2 {
       font-size: 28px;
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     .fileUploaders {
       display: flex;
-      max-width: 300px;
+      max-width: 100%;
       margin-top: 20px;
-      gap: 15px;
+      gap:10px;
+      padding: 0 10px;
 
       .fileUploader_wrapper {
+        display: flex;
         flex: 1 1 33%; // <-- każdemu wrapperowi dajemy 1/3 dostępnego miejsca
         max-width: 33%; // ograniczenie, żeby nie było więcej
         box-sizing: border-box;
         
 
         .fileUploader {
-          flex: 1;
-          .custom-file-upload {
-            font-size: 11px;
-            height: 200px;
+          justify-content: center;
+          
 
-            .custom-file-upload::before {
-              background-color: transparent;
-              color: #333; // żeby tekst był widoczny
-              border: 1px solid #ccc;
+          .custom-file-upload {
+            width: 100%;
+            height: 80px;
+            font-size: 9px;
+            // border: 0.1px solid rgb(209, 209, 209);
+            margin-bottom: 5px;
+
+            &::before {
+
+              width: 100%;
               height: 100%;
-              
+              background-color: rgb(247, 247, 247);
+              color: #333; // żeby tekst był widoczny
+              border: 0.1 solid rgb(231, 231, 231);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              box-sizing: border-box;
+              padding: 10px;
+
+            }
+
+            
+          }
+
+          .file-preview {
+            
+
+            .file-item{
+              border: none;
+
+              button{
+
+              }
             }
           }
+
+        }
+
+        .checkbox{
+          font-size: 12px;
+          font-family: "ProductSans";
+          font-weight: 200;
+          margin-top: 5px;
         }
       }
     }
+
     .back {
       font-size: 12px;
       padding: 8px 17px;
