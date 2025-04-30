@@ -37,7 +37,7 @@ export default function Step1({ nextStep }) {
         
         {/* Przycisk "Dalej" jest aktywny tylko, gdy wybrano jedną z opcji */}
         <button
-          className="lato-light"
+          className="step_button"
           onClick={nextStep}
         // disabled={!selectedOption} // Przycisk nieaktywny, jeśli nic nie zaznaczono
         >

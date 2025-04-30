@@ -117,7 +117,7 @@ export default function WizytowkaLanding() {
 
               <button className="client_button">
                 <a
-                  href={`http://localhost:3000/form?ref=${ref}`}
+                  href={`${process.env.REACT_APP_FORM_URL}?ref=${ref}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

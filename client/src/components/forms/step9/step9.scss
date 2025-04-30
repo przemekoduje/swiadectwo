@@ -52,6 +52,7 @@
     .back {
       background-color: #ff0083;
       border: none;
+      color: white;
     }
 
     &:hover {
@@ -68,11 +69,12 @@
 @media (max-width: 425px) {
   .step9 {
     width: 100vw;
-    padding: 0 15px;
+    padding: 0 0 0 40px;
 
     .podsumowanie {
       font-size: 28px;
-      margin-bottom: 0;
+      margin-bottom: 10px;
+      margin-top: 20px;
     }
     .summary{
       
@@ -80,6 +82,7 @@
     .nav-buttons{
       font-size: 12px;
       padding: 8px 17px;
+      background-color: #ff0083;
 
       
     }

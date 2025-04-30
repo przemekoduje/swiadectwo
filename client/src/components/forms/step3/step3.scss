@@ -24,8 +24,8 @@
         padding: 20px 20px;
         outline: none;
         border: none;
-        border: 1px solid rgb(83, 35, 35);
-        border-radius: 5px;
+        border: 1px solid rgb(161, 160, 160);
+        border-radius: 15px;
         transition: all 0.3s ease;
         position: relative;
         font-size: 16px;
@@ -34,10 +34,12 @@
 
       .miasto-input {
         width: 150px;
+        border: 1px solid rgb(161, 160, 160);
       }
 
       .ulica-input {
         width: 250px;
+        border: 1px solid rgb(161, 160, 160);
       }
       label {
         position: absolute;
@@ -111,6 +113,7 @@
       font-size: 28px;
       max-width: 300px;
       margin-bottom: 20px;
+      margin-top: 20px;
     }
     
     .inputs {
@@ -137,7 +140,7 @@
           // width: 300px;
           font-size: 14px;
           color: #4a4a4a;
-          border: 1px solid black;
+          border: 1px solid rgb(161, 160, 160);
         }
       }
     }
