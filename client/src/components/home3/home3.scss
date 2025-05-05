@@ -2,6 +2,7 @@
   width: 100%;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 
   .h3-wrapper {
 
@@ -67,6 +68,90 @@
         }
         .price {
           font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 425px) {
+  .home3-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 0 24px;
+  
+    .h3-wrapper {
+  
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: translateX(0);
+      margin-top: 40px;
+      color: #4a4a4a;
+      h3 {
+        font-size: 32px;
+      }
+  
+      ul {
+  
+          margin-bottom: 30px;
+          margin-top: 35px;
+        li {
+          list-style-type: none;
+          p{
+            font-size: 14px;
+          }
+        }
+      }
+  
+      .comix-offer {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+  
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: white;
+          border-radius: 5px;
+          padding: 0px;
+  
+          img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+          }
+  
+          .type {
+            font-size: 18px;
+          }
+  
+          button {
+            margin: 25px 0;
+            font-size: 14px;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            background-color: #ff0083;
+            border-radius: 5px;
+            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+            /* Dodany cień */
+            transition: box-shadow 0.3s ease;
+            /* Płynne przejście dla cienia */
+            cursor: pointer;
+  
+            &:hover {
+              box-shadow: 0 6px 9px #0000004d;
+              /* Cień po najechaniu myszą */
+            }
+          }
+          .price {
+            font-size: 20px;
+          }
         }
       }
     }

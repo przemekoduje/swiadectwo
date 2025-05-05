@@ -14,6 +14,10 @@ import EmailForm from "../../components/emailForm/EmailForm";
 import jsPDF from "jspdf";
 import ChatWidget from "chat-widget";
 // import { generatePDF } from "../../utils/pdfUtils";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
+
+
 
 import {
   collection,
@@ -44,6 +48,7 @@ export async function saveDraft(step, data) {
     ref,
     {
       [`form.step${step}`]: data,
+      agentRef: localStorage.getItem("agentRef") || null,
       status: "DRAFT",
       ...(snap.exists() ? {} : { "timestamps.createdAt": serverTimestamp() }),
     },
@@ -60,6 +65,7 @@ export async function finishRequest() {
     ref,
     {
       status: "SUBMITTED",
+      agentRef: localStorage.getItem("agentRef") || null,
       "timestamps.sentAt": serverTimestamp(),
     },
     { merge: true }
@@ -90,6 +96,20 @@ export default function FormPage() {
     []
   );
   const [firestoreFormData, setFirestoreFormData] = useState({});
+  const [emailStatusPopup, setEmailStatusPopup] = useState(null);
+  
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const agentRef = urlParams.get("ref");
+    if (agentRef) {
+      localStorage.setItem("agentRef", agentRef);
+    }
+  }, []);
+  
+
 
   useEffect(() => {
     const handleBlur = () => {
@@ -99,15 +119,14 @@ export default function FormPage() {
         document.body.style.zoom = "1"; // przywróć zoom (na Android)
       }, 100);
     };
-  
+
     const inputs = document.querySelectorAll("input, textarea");
     inputs.forEach((input) => input.addEventListener("blur", handleBlur));
-  
+
     return () => {
       inputs.forEach((input) => input.removeEventListener("blur", handleBlur));
     };
   }, []);
-
 
   // Funkcja dodająca pytanie do pominiętych, z opcjami
   const addSkippedQuestion = (step, question, options = []) => {
@@ -403,9 +422,19 @@ export default function FormPage() {
     if (!emailRes.ok) {
       const errorText = await emailRes.text();
       console.error("❌ Błąd wysyłki e-maila:", emailRes.status, errorText);
-      return; // Zatrzymaj dalej
+      setEmailStatusPopup({
+        success: false,
+        message:
+          "Nie udało się wysłać e‑maila. Spróbuj ponownie lub skontaktuj się z nami.",
+      });
+      return;
     }
-    console.log("✅ E-mail wysłany");
+    console.log(emailStatusPopup);
+    setEmailStatusPopup({
+      success: true,
+      message:
+        "E‑mail został wysłany do zarządcy. Wróć do formularza po otrzymaniu odpowiedzi od Zarządcy.",
+    });
 
     // 5️⃣ Zmieniamy status w Firestore + czyścimy localStorage
     await setDoc(
@@ -648,7 +677,10 @@ export default function FormPage() {
   return (
     <div className="form-page">
       {/* ✅ Chatbot dynamicznie zmienia pytania w zależności od kroku formularza */}
-      <ChatWidget className="chat-widget" suggestedQuestions={suggestedQuestions} />
+      <ChatWidget
+        className="chat-widget"
+        suggestedQuestions={suggestedQuestions}
+      />
 
       <div className={`content ${showConfirmation ? "blur-background" : ""}`}>
         <div className="headPhoto">
@@ -656,9 +688,7 @@ export default function FormPage() {
         </div>
         <hr className="full-width-line" />
 
-        <div className="left-section">
-          
-        </div>
+        <div className="left-section"></div>
 
         <div className="right-section">
           {/* Przycisk + popup pojawią się tylko w kroku 8 */}
@@ -696,6 +726,9 @@ export default function FormPage() {
             <path d="M13 3c-4.97 0-9 4.03-9 9H1l4 3.99L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z" />
           </svg>
         </button>
+        <button className="back-to-page" onClick={() => navigate('/')}>
+          <ArrowBackIcon />
+        </button>
       </div>
 
       {showConfirmation && (
@@ -705,6 +738,18 @@ export default function FormPage() {
           <div className="confirmation-buttons">
             <button onClick={handleConfirmReset}>Tak</button>
             <button onClick={handleCancelReset}>Nie</button>
+          </div>
+        </div>
+      )}
+
+      {emailStatusPopup && (
+        <div className="confirmation-popup lato-light">
+          <h3>
+            {emailStatusPopup.success ? "✔ Wysłano e‑mail" : "❌ Błąd wysyłki"}
+          </h3>
+          <p>{emailStatusPopup.message}</p>
+          <div className="confirmation-buttons">
+            <button onClick={() => setEmailStatusPopup(null)}>Zamknij</button>
           </div>
         </div>
       )}

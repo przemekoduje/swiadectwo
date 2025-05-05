@@ -26,7 +26,7 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 
 // Middleware CORS
-app.use(cors());
+app.use(cors({ origin: true }));
 
 // Serwowanie plików statycznych
 app.use(express.static(path.join(__dirname, "public")));

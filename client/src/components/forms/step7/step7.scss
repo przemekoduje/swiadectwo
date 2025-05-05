@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "ProductSans";
 
   h2 {
     font-size: 40px;
     text-align: center;
     margin-bottom: 50px;
+    font-family: "ProductSans";
   }
   .dates {
     display: flex;
@@ -16,6 +18,8 @@
 
     label {
       padding: 10px 20px;
+      font-family: "ProductSans";
+      font-weight: 200;
 
       display: flex;
       align-items: center;
@@ -73,6 +77,7 @@
 @media (max-width: 425px) {
   
   .step7 {
+    padding-bottom: 24px;
     h2 {
       font-size: 28px;
       max-width: 320px;

@@ -36,14 +36,15 @@ export default function Step1({ nextStep }) {
         <p>Chcesz szybciej? Zadzwoń: <strong>690 029 414</strong></p>
         
         {/* Przycisk "Dalej" jest aktywny tylko, gdy wybrano jedną z opcji */}
-        <button
+       
+      </div>
+      <button
           className="step_button"
           onClick={nextStep}
         // disabled={!selectedOption} // Przycisk nieaktywny, jeśli nic nie zaznaczono
         >
           Dalej
         </button>
-      </div>
     </div>
   );
 }

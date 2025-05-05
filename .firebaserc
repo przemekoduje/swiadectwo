@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "swiadectwo-7bd17"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }

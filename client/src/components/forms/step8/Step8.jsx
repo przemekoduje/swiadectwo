@@ -46,12 +46,22 @@ export default function Step8({
   };
 
   const storage = getStorage();
+
   async function uploadArray(arr, folder) {
+    console.log(`📦 Uploaduję ${arr.length} plików do folderu ${folder}`);
     return Promise.all(
       arr.map(async (file) => {
-        const path = `${getRequestId()}/${folder}/${file.name}`;
-        await uploadBytes(ref(storage, path), file);
-        return await getDownloadURL(ref(storage, path));
+        try {
+          const path = `${getRequestId()}/${folder}/${file.name}`;
+          const fileRef = ref(storage, path);
+          const snapshot = await uploadBytes(fileRef, file);
+          const url = await getDownloadURL(fileRef);
+          console.log(`✅ Upload zakończony: ${url}`);
+          return url;
+        } catch (err) {
+          console.error(`❌ Błąd przy uploadzie pliku:`, err);
+          return null;
+        }
       })
     );
   }

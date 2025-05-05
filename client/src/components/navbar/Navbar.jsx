@@ -8,12 +8,12 @@ export default function Navbar() {
     <div className="navbar-wrapper">
       <div className='navbar'>
         <div className="logoArea">
-          <div className="logo">
+          {/* <div className="logo">
             <img src="/images/logo.png" alt="" />
-          </div>
-          {/* <div className="logoText">
-          <span>[ Greenspan ]</span>
-        </div> */}
+          </div> */}
+          <div className="logoText">
+          <span>swiadectwo-na-klik.online</span>
+        </div>
         </div>
         <div className="linkArea">
           <a href="/">Q & A</a>

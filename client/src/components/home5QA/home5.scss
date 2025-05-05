@@ -52,3 +52,20 @@
     }
   }
   
+
+  @media (max-width: 425px) {
+    .h5-QA{
+      padding: 50px 24px;
+
+      .faq-list .faq-item{
+        margin-bottom: 0;
+      }
+
+      .faq-list .faq-item  .faq-question{
+        font-size: 18px;
+      }
+      .faq-list .faq-item  .faq-answer{
+        font-size: 14px;
+      }
+    }
+  }

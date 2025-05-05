@@ -1,6 +1,6 @@
 .form-page {
   width: 100vw;
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   position: relative;
 
@@ -160,27 +160,51 @@
     width: 30px;
     height: 30px;
     background-color: transparent;
+    cursor: pointer;
+  }
+  .back-to-page{
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    border: none;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(66, 66, 66);
+
   }
 }
 
 @media (max-width: 425px) {
   .form-page {
-    // overflow: hidden;
-
+    
+    
     .chat-widget-icon{
       display: none;
     }
-    .right-section {
-      width: 100vw;
-    }
 
-    .left-section{
-      background-image: none;
-    }
+    .content{
 
+      // overflow: hidden;
+      
+      .left-section {
+        display: none;
+      }
+      .right-section {
+        width: 100vw;
+        height: calc(100vh - 140px);
+      }
+  
+      
+  
+      
+
+    }
     .confirmation-popup{
       max-width: 90%;
       height: 200px;
     }
+    
   }
 }

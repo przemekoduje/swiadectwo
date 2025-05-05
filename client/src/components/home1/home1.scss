@@ -78,6 +78,17 @@
 
     .homepage .textButton {
         left: 40px;
+
+
+        button {
+            font-size: 20px;
+            color: white;
+            padding: 18px 50px;
+            border: none;
+            background-color: #FF0083;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     }
 
 }
@@ -103,7 +114,7 @@
 
 }
 
-@media (max-width: 450px) {
+@media (max-width: 425px) {
     
     .homepage .textButton .textContainer h1 {
         font-size: 52px;

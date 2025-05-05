@@ -1,32 +1,30 @@
 .home2-container {
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  h1{
+  h1 {
     font-size: 60px;
     font-weight: 700;
-    color:#4a4a4a;
+    color: #4a4a4a;
     margin-bottom: 30px;
   }
 
-  .short{
+  .short {
     width: 650px;
     margin-bottom: 80px;
     line-height: 1.6;
   }
 
   .controls {
-
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     margin-top: 30px;
-
 
     button {
       border-radius: 50%;
@@ -39,10 +37,6 @@
       color: rgb(231, 231, 231);
 
       box-shadow: 3px 3px 25px 5px rgba(179, 179, 179, 0.2);
-
-
-
-
     }
   }
 
@@ -50,7 +44,6 @@
     position: relative;
     width: 650px;
     height: 350px;
- 
 
     .card {
       position: absolute;
@@ -65,11 +58,8 @@
       box-shadow: 3px 3px 25px 5px rgba(179, 179, 179, 0.2);
       display: flex;
       align-items: center;
-      
 
-
-
-      .h2-img{
+      .h2-img {
         flex: 1;
         height: 100%;
         align-self: flex-end;
@@ -78,10 +68,8 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
-          
         }
       }
-      
 
       .h2-texts {
         flex: 2;
@@ -89,40 +77,87 @@
         flex-direction: column;
         padding: 10px 50px;
         gap: 50px;
-       
-        
+
         h3 {
           font-size: 32px;
           font-weight: 600;
-          color:#4a4a4a;
+          color: #4a4a4a;
         }
 
         p {
           font-size: 16px;
-          color:#4a4a4a;
+          color: #4a4a4a;
           line-height: 1.6;
         }
       }
-
-
     }
   }
 }
 
 /* Media query for screens smaller than 740px */
-@media (min-width: 1440px) {}
+@media (min-width: 1440px) {
+}
 
-
-
-
-@media (max-width: 740px) {
+@media (min-width: 426px) and (max-width: 740px) {
   .home2-container .card-swipe-container {
     width: 450px;
   }
 }
 
-@media (max-width: 450px) {
-  .home2-container .card-swipe-container {
-    width: 250px;
+@media (max-width: 425px) {
+  .home2-container {
+    padding: 0 24px;
+
+    h1 {
+      font-size: 32px;
+      margin-top: 25px;
+    }
+    .short {
+      width: 100%;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    .card-swipe-container {
+      width: 100%;
+      height: 220px;
+
+      .card{
+        width: 100%;
+        height: 100%;
+
+        .h2-img{
+          flex: 2;
+         
+        }
+        .h2-texts{
+          flex: 3;
+          padding: 10px 20px 10px;
+          h3{
+            font-size: 18px;
+          }
+          p{
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    .controls{
+      button {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: white;
+        font-size: 20px;
+        font-weight: 100;
+        color: rgb(222, 222, 222);
+  
+        box-shadow: 3px 3px 25px 5px rgba(179, 179, 179, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 }

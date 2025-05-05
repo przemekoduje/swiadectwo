@@ -88,7 +88,7 @@ const EmailForm = ({
           />
         </label>
         <button type="submit" disabled={loading}>
-          Wyślij
+          Wyślij do Zarządcy
         </button>
         {error && <p>{error}</p>}
       </form>

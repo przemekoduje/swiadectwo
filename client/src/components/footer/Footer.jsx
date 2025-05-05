@@ -9,12 +9,12 @@ export default function Footer() {
       </div>
       <div className="footer-texts lato-regular">
         <div className="footer-h3">
-          <h3>PobierzSwiadectwoNaKlik.online</h3>
-          <div className="adress">
+          <h3>swiadectwo-na-klik.online</h3>
+          {/* <div className="adress">
             <span>Aplikacja firmy GREENSPAN Przemysław Rakotny</span> 
             <span>44-121 Gliwice, ul. J.Ordona 5/34</span> 
             <span>NIP 631 259 07 15</span>
-          </div>
+          </div> */}
           <div className="audytor">
             <span>AUDYTOR</span> 
             <span>Przemysław Rakotny</span> 

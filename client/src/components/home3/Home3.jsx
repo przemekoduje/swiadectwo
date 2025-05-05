@@ -1,9 +1,9 @@
 import React from "react";
 import "./home3.scss";
 
-const images = ["/images/flat.png", "/images/dom.png", "/images/building.png"];
-const types = ["Mieszkanie", "Dom i Lokal", "Wielorodzinny"];
-const prices = ["219 zł", "319 zł", "419 zł"];
+const images = ["/images/flat.png", "/images/dom.png"];
+const types = ["Mieszkanie", "Dom i Lokal"];
+const prices = ["219 zł", "319 zł"];
 
 // Komponent comixOffer
 const ComixOffer = ({ image, type, price }) => {
@@ -21,7 +21,7 @@ export default function Home3() {
   return (
     <div className="home3-container">
       <div className="h3-wrapper">
-        <h3 className="lato-regular">Twoje świadectwo w 3 klikach:</h3>
+        <h3 className="lato-regular">Twoje świadectwo w kilku klikach:</h3>
         <ul className="lato-regular">
           <li>
             <p>Wybierz typ nieruchomosci i wypełnij odpowiedni formularz</p>

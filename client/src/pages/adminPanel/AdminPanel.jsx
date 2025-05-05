@@ -13,6 +13,7 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 import ManagerModal from "../../modals/managerModal/ManagerModal"; // Importuj komponent ManagerModal
 
@@ -36,6 +37,7 @@ export default function AdminPanel() {
 
     try {
       const refDoc = doc(db, "referrals", phone);
+
       const existing = await getDoc(refDoc);
 
       if (!existing.exists()) {
@@ -46,11 +48,11 @@ export default function AdminPanel() {
         });
       }
 
-      await addDoc(collection(db, "leads_submitted"), {
-        agentPhone: phone,
-        clientPhone: null,
-        timestamp: serverTimestamp(),
-      });
+      // await addDoc(collection(db, "leads_submitted"), {
+      //   agentPhone: phone,
+      //   clientPhone: null,
+      //   timestamp: serverTimestamp(),
+      // });
 
       const link = `${window.location.origin}/wizytowka?ref=${phone}&partner=true`;
       setGeneratedLink(link);
@@ -62,30 +64,49 @@ export default function AdminPanel() {
 
   const fetchSubmissions = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "leads_submitted"));
-      const results = querySnapshot.docs.map((doc) => doc.data());
+      const querySnapshot = await getDocs(collection(db, "cert_requests"));
+      const results = querySnapshot.docs.map((doc) => ({
+        id: doc.id,           // ← to dodaj!
+        ...doc.data(),
+      }));
 
       const grouped = results.reduce((acc, curr) => {
-        if (!curr.agentPhone) return acc;
-        if (!acc[curr.agentPhone]) {
-          acc[curr.agentPhone] = [];
-        }
-        if (curr.clientPhone) {
-          acc[curr.agentPhone].push(curr.clientPhone);
-        }
+        const agentPhone = curr.agentRef;
+        const clientPhone = curr["form.step2"]?.phone;
+        const firstName = curr["form.step2"]?.firstName;
+        const lastName = curr["form.step2"]?.lastName;
+
+        if (!agentPhone || !clientPhone) return acc;
+
+        if (!acc[agentPhone]) acc[agentPhone] = [];
+        acc[agentPhone].push({
+          phone: clientPhone,
+          name: `${firstName || "?"} ${lastName || "?"}`,
+          id: curr.id,
+        });
+
         return acc;
       }, {});
 
+      // Dodajemy też wszystkich pośredników z `referrals`
+      const referralsSnapshot = await getDocs(collection(db, "referrals"));
+      referralsSnapshot.forEach((docSnap) => {
+        const refPhone = docSnap.id;
+        if (!grouped[refPhone]) {
+          grouped[refPhone] = [];
+        }
+      });
+
       const groupedArray = Object.entries(grouped).map(
-        ([agentPhone, clientPhones]) => ({
+        ([agentPhone, clients]) => ({
           agentPhone,
-          clientPhones,
+          clients,
         })
       );
 
       setSubmissions(groupedArray);
     } catch (err) {
-      console.error("Błąd pobierania danych:", err);
+      console.error("❌ Błąd pobierania zgłoszeń pośredników:", err);
     }
   };
 
@@ -97,8 +118,10 @@ export default function AdminPanel() {
 
     const unsub = onSnapshot(q, (snap) => {
       const docs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      console.log("🔥 Pełne dane dokumentu:", docs); // ← masz je w dobrym formacie!
+      // console.log("🔥 Pełne dane dokumentu:", docs); // ← masz je w dobrym formacie!
       setRequests(docs);
+      // 🔁 Odśwież dane w tabeli z klientami pośredników
+      fetchSubmissions();
     });
 
     return () => unsub();
@@ -117,6 +140,8 @@ export default function AdminPanel() {
   useEffect(() => {
     fetchSubmissions();
   }, []);
+
+  console.log("🔄 SUBMISSIONS:", submissions);
 
   const handleSave = async (id, answers) => {
     try {
@@ -205,7 +230,7 @@ export default function AdminPanel() {
           />
 
           <button onClick={generateLink} style={{ padding: "10px 20px" }}>
-            Generuj link z referencją
+            Generuj link z referencją
           </button>
 
           {generatedLink && (
@@ -219,31 +244,57 @@ export default function AdminPanel() {
             </div>
           )}
 
-          {submissions.length > 0 && (
-            <div style={{ marginTop: 40 }}>
-              <h3>📋 Lista zgłoszeń od klientów pośredników</h3>
+          <div style={{ marginTop: 40 }}>
+            <h3>📋 Lista zgłoszeń od klientów pośredników</h3>
+
+            {submissions.length === 0 ? (
+              <p>Brak zgłoszeń zarejestrowanych przez pośredników</p>
+            ) : (
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
                   <tr>
-                    <th>Telefon pośrednika</th>
-                    <th>Telefony klientów</th>
+                    <th style={{ textAlign: "left", padding: "8px" }}>
+                      📞 Pośrednik
+                    </th>
+                    <th style={{ textAlign: "left", padding: "8px" }}>
+                      📱 Klienci
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {submissions.map((sub) => (
                     <tr key={sub.agentPhone}>
-                      <td>{sub.agentPhone}</td>
-                      <td>
-                        {sub.clientPhones?.length
-                          ? sub.clientPhones.join(", ")
-                          : "Brak zgłoszeń"}
+                      <td style={{ padding: "8px", verticalAlign: "top" }}>
+                        {sub.agentPhone}
+                      </td>
+                      <td style={{ padding: "8px" }}>
+                        {sub.clients?.length > 0 ? (
+                          <ul style={{ margin: 0, paddingLeft: 16 }}>
+                            {sub.clients.map((c, index) => (
+                              <li key={index}>
+                                <Link
+                                  to={`/client/${c.id}`}
+                                  style={{
+                                    textDecoration: "underline",
+                                    color: "blue",
+                                  }}
+                                >
+                                  {c.name}
+                                </Link>{" "}
+                                ({c.phone})
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          "Brak zgłoszeń"
+                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </div>
-          )}
+            )}
+          </div>
         </>
       )}
 
@@ -283,10 +334,14 @@ export default function AdminPanel() {
                     </td>
                     <td>{missing.join(", ") || "Brak"}</td>
                     <td>
-                      <button onClick={() => {
-                        console.log("Kliknięto UZUPEŁNIJ, rekord:", r);
-                        setSelected(r);
-                      }}>Uzupełnij</button>
+                      <button
+                        onClick={() => {
+                          console.log("Kliknięto UZUPEŁNIJ, rekord:", r);
+                          setSelected(r);
+                        }}
+                      >
+                        Uzupełnij
+                      </button>
                     </td>
                   </tr>
                 );

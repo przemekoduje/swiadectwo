@@ -10,7 +10,7 @@ export default function Home4() {
       <div className="h4-texts">
         <h3 className="lato-regular">Natychmiastowa pomoc</h3>
         <span className="h4-text_text lato-regular">
-          Greenspan, nasz przemiły chatbot odpowie chętnie na większość pytań.
+         Nasz przemiły chatbot odpowie chętnie na większość pytań.
           Bądź proszę wyrozumiały dla ewentualnych pomyłek czy złej składni
           wypowiedzi. Czasami po prostu jest w gorszej kondycji. Uczy się
           dopiero swojego fachu. Jeśli potrzebujesz pomocy audytora, zadzwoń

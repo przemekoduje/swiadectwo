@@ -23,33 +23,45 @@
     .footer-h3 {
       display: flex;
       flex-direction: column;
-    //   gap: 30px;
+      //   gap: 30px;
 
       h3 {
         font-size: 40px;
         font-weight: 700;
         margin-bottom: 46px;
       }
-      .adress{
+      .adress {
         display: flex;
         flex-direction: column;
         margin-bottom: 40px;
         gap: 5px;
-        
       }
-      .audytor{
+      .audytor {
         display: flex;
         flex-direction: column;
         margin-bottom: 40px;
         gap: 5px;
       }
 
-      .kontakt{
+      .kontakt {
         display: flex;
         flex-direction: column;
         gap: 5px;
       }
-      
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .footer {
+    .footer-texts {
+      width: 100%;
+      .footer-h3 {
+        h3 {
+          font-size: 28px;
+        }
+        
+      }
     }
   }
 }
