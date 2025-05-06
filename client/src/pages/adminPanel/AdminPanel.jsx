@@ -23,6 +23,24 @@ const nextStatus = (s) => {
   return STATUSES[(idx + 1) % STATUSES.length];
 };
 
+const messageTemplates = {
+  zimny: `Dzień dobry,
+
+Zajmuję się wykonywaniem świadectw charakterystyki energetycznej.
+
+Przesyłam wizytówkę gotową do szybkiego przekazania dalej (SMS lub WhatsApp – wystarczy wybrać formę i kliknąć „wyślij”), na wypadek gdyby ktoś z Państwa klientów lub znajomych potrzebował takiej usługi.
+
+Za każde skuteczne polecenie wypłacam 50 zł 💸
+
+[TUTAJ_WKLEJ_LINK]
+
+Z góry dziękuję i serdecznie pozdrawiam,
+Przemysław Rakotny`,
+
+  cieply: `Hej, wspominałeś, że wystawiasz mieszkanie – tutaj szybki link do świadectwa energetycznego: `,
+  kolega: `Siema, to ten link do świadectwa, o którym mówiłem. Kliknij i załatwisz w minutę: `,
+};
+
 export default function AdminPanel() {
   const [tab, setTab] = useState("referrals");
   const [phone, setPhone] = useState("");
@@ -31,6 +49,8 @@ export default function AdminPanel() {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [requests, setRequests] = useState([]);
+  const [messageType, setMessageType] = useState("zimny");
+  const [messageText, setMessageText] = useState("");
 
   const generateLink = async () => {
     if (!phone) return alert("Podaj numer telefonu pośrednika");
@@ -55,6 +75,12 @@ export default function AdminPanel() {
       // });
 
       const link = `${window.location.origin}/wizytowka?ref=${phone}&partner=true`;
+      const fullMessage = messageTemplates[messageType].replace(
+        "[TUTAJ_WKLEJ_LINK]",
+        link
+      );
+
+      setMessageText(fullMessage);
       setGeneratedLink(link);
       fetchSubmissions();
     } catch (err) {
@@ -66,7 +92,7 @@ export default function AdminPanel() {
     try {
       const querySnapshot = await getDocs(collection(db, "cert_requests"));
       const results = querySnapshot.docs.map((doc) => ({
-        id: doc.id,           // ← to dodaj!
+        id: doc.id, // ← to dodaj!
         ...doc.data(),
       }));
 
@@ -229,6 +255,17 @@ export default function AdminPanel() {
             style={{ width: "100%", padding: 10, marginBottom: 20 }}
           />
 
+          <label>Typ kontaktu:</label>
+          <select
+            value={messageType}
+            onChange={(e) => setMessageType(e.target.value)}
+            style={{ width: "100%", padding: 10, marginBottom: 20 }}
+          >
+            <option value="zimny">zimny nieznajomy</option>
+            <option value="cieply">ciepły znajomy</option>
+            <option value="kolega">ciepły kolega</option>
+          </select>
+
           <button onClick={generateLink} style={{ padding: "10px 20px" }}>
             Generuj link z referencją
           </button>
@@ -241,6 +278,31 @@ export default function AdminPanel() {
                   {generatedLink}
                 </a>
               </p>
+            </div>
+          )}
+          {messageText && (
+            <div style={{ marginTop: 20 }}>
+              <strong>Wiadomość do skopiowania:</strong>
+              <textarea
+                value={messageText}
+                readOnly
+                style={{
+                  width: "100%",
+                  height: 100,
+                  padding: 10,
+                  marginTop: 10,
+                }}
+              />
+
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(messageText);
+                  alert("Wiadomość skopiowana do schowka!");
+                }}
+                style={{ marginTop: 10, padding: "10px 20px" }}
+              >
+                📋 Kopiuj wiadomość
+              </button>
             </div>
           )}
 
